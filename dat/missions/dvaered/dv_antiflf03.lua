@@ -339,8 +339,8 @@ end
 function spawnDVbomber()
     bomber = pilot.add("Dvaered Ancestor", "dvaered_nojump", obstinate:pos(), false)[1]
     bomber:rmOutfit("all")
-    bomber:addOutfit("Imperator Launcher", 1)
-    bomber:addOutfit("Imperator Launcher", 1)
+    bomber:addOutfit("Imperator Missile Turret", 1)
+    bomber:addOutfit("Imperator Missile Turret", 1)
     bomber:addOutfit("Engine Reroute", 1)
     bomber:addOutfit("Laser Cannon", 3)
     bomber:setNodisable(true)
@@ -400,8 +400,8 @@ function deathDVbomber()
             if not j:exists() then
                 bomber = pilot.add("Dvaered Ancestor", "dvaered_nojump", obstinate:pos(), false)[1]
                 bomber:rmOutfit("all")
-                bomber:addOutfit("Imperator Launcher", 1)
-                bomber:addOutfit("Imperator Launcher", 1)
+                bomber:addOutfit("Imperator Missile Turret", 1)
+                bomber:addOutfit("Imperator Missile Turret", 1)
                 bomber:addOutfit("Engine Reroute", 1)
                 bomber:addOutfit("Laser Cannon", 3)
                 bomber:setNodisable(true)
