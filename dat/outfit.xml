@@ -429,6 +429,23 @@
    <amount>20</amount>
   </specific>
  </outfit>
+ <outfit name="Seeker Missile Turret">
+  <general>
+   <slot>high</slot>
+   <tech>5</tech>
+   <license>Medium Weapon License</license>
+   <mass>40</mass>
+   <price>75000</price>
+   <description>A dual slot missile turret for launching Seeker missiles, a Seeker missile turret is an inexpensive way to augment a ship's ranged combat capabilities.</description>
+   <gfx_store>seekerlauncher</gfx_store>
+  </general>
+  <specific type="turret launcher" secondary="1">
+   <cpu>18</cpu>
+   <ammo>Seeker Missile</ammo>
+   <delay>900</delay>
+   <amount>80</amount>
+  </specific>
+ </outfit>
  <outfit name="Seeker Missile">
   <general>
    <tech>2</tech>
@@ -467,6 +484,23 @@
    <ammo>Headhunter Missile</ammo>
    <delay>2000</delay>
    <amount>15</amount>
+  </specific>
+ </outfit>
+ <outfit name="Headhunter Missile Turret">
+  <general>
+   <slot>high</slot>
+   <tech>6</tech>
+   <license>Heavy Weapon License</license>
+   <mass>48</mass>
+   <price>120000</price>
+   <description>The Headhunter dual slot missile turret is one of the most-used missile launchers by the security companies. Far more reliable than Seeker missiles, Headhunters feature newer sensors and an advanced tracking system making them much better at hitting their targets.</description>
+   <gfx_store>headhunterlauncher</gfx_store>
+  </general>
+  <specific type="turret launcher" secondary="1">
+   <cpu>24</cpu>
+   <ammo>Headhunter Missile</ammo>
+   <delay>1000</delay>
+   <amount>60</amount>
   </specific>
  </outfit>
  <outfit name="Headhunter Missile">
@@ -511,6 +545,23 @@
    <amount>40</amount>
   </specific>
  </outfit>
+ <outfit name="Banshee Missile Turret">
+  <general>
+   <slot>high</slot>
+   <tech>10</tech>
+   <license>Heavy Weapon License</license>
+   <mass>50</mass>
+   <price>125000</price>
+   <gfx_store>bansheelauncher</gfx_store>
+   <description>The Banshee fout slot missile turret uses a quick-action firing mechanism to be able to quickly launch the Banshee rockets. The only drawback is that this mechanism can only be used with light rockets, limiting the payload the rockets can have.</description>
+  </general>
+  <specific type="turret launcher" secondary="1">
+   <cpu>24</cpu>
+   <ammo>Banshee Rocket</ammo>
+   <delay>94</delay>
+   <amount>160</amount>
+  </specific>
+ </outfit>
  <outfit name="Banshee Rocket">
   <general>
    <tech>6</tech>
@@ -549,6 +600,23 @@
    <ammo>Mace Rocket</ammo>
    <delay>2000</delay>
    <amount>10</amount>
+  </specific>
+ </outfit>
+ <outfit name="Mace Missile Turret">
+  <general>
+   <slot>high</slot>
+   <tech>4</tech>
+   <license>Heavy Weapon License</license>
+   <mass>40</mass>
+   <price>57000</price>
+   <description>A dual slot missile turret for launching Dvaered Mace rockets.</description>
+   <gfx_store>macelauncher</gfx_store>
+  </general>
+  <specific type="turret launcher" secondary="1">
+   <cpu>15</cpu>
+   <ammo>Mace Rocket</ammo>
+   <delay>1000</delay>
+   <amount>40</amount>
   </specific>
  </outfit>
  <outfit name="Mace Rocket">
@@ -590,6 +658,23 @@
    <amount>6</amount>
   </specific>
  </outfit>
+ <outfit name="Caesar IV Missile Turret">
+  <general>
+   <slot>high</slot>
+   <tech>10</tech>
+   <license>Heavy Weapon License</license>
+   <mass>120</mass>
+   <price>360000</price>
+   <description>The dual slot missile turret for the Caesar IV is quite remarkable. A new loading mechanism allows it to load and fire a missile once every 5 seconds, besting older mechanisms by a substantial margin.</description>
+   <gfx_store>caesarlauncher</gfx_store>
+  </general>
+  <specific type="turret launcher" secondary="1">
+   <cpu>48</cpu>
+   <ammo>Caesar IV Missile</ammo>
+   <delay>2500</delay>
+   <amount>24</amount>
+  </specific>
+ </outfit>
  <outfit name="Caesar IV Missile">
   <general>
    <tech>9</tech>
@@ -614,21 +699,21 @@
    <ai>seek</ai>
   </specific>
  </outfit>
- <outfit name="Imperator Launcher">
+ <outfit name="Imperator Missile Turret">
   <general>
    <slot>high</slot>
-   <tech>10</tech>
+   <tech>11</tech>
    <license>Heavy Weapon License</license>
-   <mass>34</mass>
-   <price>160000</price>
+   <mass>136</mass>
+   <price>480000</price>
    <description>While the Imperator's launcher is an ugly affair (it doesn't fit any ship hull known to man), no-one will laugh at a captain fielding it, lest they be brutally removed from existence.</description>
    <gfx_store>caesarlauncher</gfx_store>
   </general>
-  <specific type="launcher" secondary="1">
-   <cpu>20</cpu>
+  <specific type="turret launcher" secondary="1">
+   <cpu>80</cpu>
    <ammo>Imperator Missile</ammo>
-   <delay>7000</delay>
-   <amount>5</amount>
+   <delay>3500</delay>
+   <amount>20</amount>
   </specific>
  </outfit>
  <outfit name="Imperator Missile">
