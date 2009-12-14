@@ -916,6 +916,7 @@ static int pilot_shootWeapon( Pilot* p, PilotOutfitSlot* w )
    double q, mint;
    int is_launcher;
    double rate_mod, energy_mod;
+   OutfitType temp;
 
    /* check to see if weapon is ready */
    if (w->timer > 0.)
@@ -1037,8 +1038,12 @@ static int pilot_shootWeapon( Pilot* p, PilotOutfitSlot* w )
          return 0;
 
       p->energy -= outfit_energy(w->u.ammo.outfit)*energy_mod;
+      temp = w->u.ammo.outfit->type;
+      if(w->outfit->type == OUTFIT_TYPE_TURRET_LAUNCHER)
+         w->u.ammo.outfit->type = OUTFIT_TYPE_TURRET_AMMO;
       weapon_add( w->u.ammo.outfit, p->solid->dir,
             &vp, &p->solid->vel, p, p->target );
+      w->u.ammo.outfit->type = temp;
 
       w->u.ammo.quantity -= 1; /* we just shot it */
       p->mass_outfit     -= w->u.ammo.outfit->mass;
