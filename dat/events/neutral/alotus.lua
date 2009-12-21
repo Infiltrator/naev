@@ -8,7 +8,7 @@
 
 
 function create ()
-	schroedinger = pilot.add("Schroedinger")[1]
+	schroedinger = pilot.add("Schroedinger", "def", vec2.new( 739, -231 ))[1]
 
 	hook.pilot(schroedinger, "jump", "finish")
 	hook.pilot(schroedinger, "death", "finish")
