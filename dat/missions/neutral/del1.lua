@@ -85,7 +85,6 @@ function accept()
 	stopping=false
 
 	hook.land("land")
-	hook.jumpin("jumpin")
 	hook.takeoff("takeoff")
 	hook.enter("enter")
 end
