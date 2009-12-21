@@ -24,13 +24,15 @@ else -- default english
 	title[3] = "Y" -- TODO
 	title[4] = "Mission Accomplished"
 	
-	shipname1 = "Eclipse" -- "Abandoned" ship
-	shipname2 = "Jessica" -- Drone informant boi
-	shipname3 = "Cluster One" -- "New" ship/baddie ship
+   shipname = {}
+	shipname[1] = "Eclipse" -- "Abandoned" ship
+	shipname[2] = "Jessica" -- Drone informant boi
+	shipname[3] = "Cluster One" -- "New" ship/baddie ship
 
-	sysname1 = "Sigur" -- Where Eclipse is TODO maybe change it
-	sysname2 = "Toaxis" -- Where Cluster One is supposed to be
-	sysname3 = "Ingot" -- Where Cluster One is
+   sysname = {}
+	sysname[1] = "Sigur" -- Where Eclipse is TODO maybe change it
+	sysname[2] = "Toaxis" -- Where Cluster One is supposed to be
+	sysname[3] = "Ingot" -- Where Cluster One is
 	
 	text = {}
 	text[0] = [[WOULD YOU LIKE TO ACCEPT MEIN MISSION?]]
@@ -41,11 +43,7 @@ else -- default english
 
 	osd_title = "Del"
 
-   osd_msg = {}
-	osd_msg[1] = "Go to Eclipse in Sigur"
-	osd_msg[2] = "Go to Cluster One in Toadis"
-
-	osd_xmsg = "Go to Cluster One in Ingot"
+   osd_msg = "Go to %s in %s."
 
 	refusetitle = "Loser"
 	refusetext = "Ownt"
@@ -74,12 +72,12 @@ function accept()
 	misn.setReward(misn_reward)
 	misn.setDesc(misn_desc)
 
-	osd_msg1 = string.format(osd_msg[1])
-	osd_msg2 = string.format(osd_msg[2])
+	osd_msg1 = string.format(osd_msg, shipname[1], sysname[1])
+	osd_msg2 = string.format(osd_msg, shipname[3], sysname[2])
 	misn.osdCreate(osd_title, {osd_msg1, osd_msg2})
 	misn.osdActive(1)
 
-	misn.setMarker(system.get(sysname1), "misc")
+	misn.setMarker(system.get(sysname[1]), "misc")
 
 	talked=false
 	stopping=false
@@ -91,9 +89,11 @@ function accept()
 end
 
 function enter()
-	if del1progress == 1 and system.get() == sysname1 then
-		eclipse = pilot.add("Empire Pacifier", "def")
-			eclipse:rename(shipname1)
+   del1progress = var.peek("del1Progress")
+
+	if del1progress == 1 and system.cur() == system.get(sysname[1]) then
+		eclipse = pilot.add("Empire Pacifier", "def", vec2.new(0, 0))[1]
+			eclipse:rename(shipname[1])
 
 			eclipse:setFaction(faction.get("Independent"))
 
@@ -102,6 +102,21 @@ function enter()
 
 		hook.pilot(eclipse, "board", "board")
 		hook.pilot(eclipse, "death", "abort")
+	elseif del1progress == 2 and system.cur() == system.get(sysname[2]) then
+		jessica = pilot.add("Trader Llama", "def", vec2.new(0, 500))[1]
+			jessica:setFaction(faction.get("Independent"))
+			jessica:rename(shipname[2])
+			jessica:hailPlayer()
+				hook.pilot(jessica, "hail", "hail")
+	elseif del1progress == 3 and system.cur() == system.get(sysname[3]) then
+		cluster = pilot.add("Trader Quicksilver", "trader", vec2.new(-400,-400), false)[1]
+			cluster:setFaction(faction.get("Independent"))
+			cluster:rename(shipname[3])
+			cluster:setInvincible()
+			cluster:control()
+			cluster:goto(vec2.new( 400, -400), false)
+			hook.pilot(cluster, "idle", "idle")
+			hook.pilot(cluster, "hail", "hail")
 	end
 end
 
@@ -113,7 +128,7 @@ function board()
 	del1progress = 2
 
 	misn.osdActive(2)
-	misn.setMarker(system.get(sysname2), "misc")
+	misn.setMarker(system.get(sysname[2]), "misc")
 
 	player.unboard()
 end
@@ -125,15 +140,6 @@ function unboard()
 		lancelot:setHostile() -- TODO maybe make it broadcast something funny
 end
 
-function enter()
-	if del1progress == 2 and system.get() == sysname2 then
-		jessica = pilot.add("Trader Llama", "def", vec2.new(0, 500))
-			jessica:setFaction(faction.get("Independent"))
-			jessica:rename(shipname2)
-			jessica:hailPlayer()
-				hook.pilot(jessica, "hail", "hail")
-   end
-end
 -- TODO THIS MUST BE BROKEN
 function hail()
 	tk.msg(title[3], string.format(text[3]))
@@ -153,19 +159,6 @@ function hail()
 	evt.finish(true)
 end
 --[[ 100% brokenness may or may not end here. Should I add anything to segue to the next event? And it probably wont self-destruct ]]--
-
-function enter()
-	if del1progress == 3 and system.get() == sysname3 then
-		cluster = pilot.add("Trader Quicksilver", "trader", vec2.new(-400,-400), false)
-			cluster:setFaction("Independent")
-			cluster:rename(shipname3)
-			cluster:setInvincible()
-			cluster:control()
-			cluster:goto(vec2.new( 400, -400), false)
-			hook.pilot(cluster, "idle", "idle")
-			hook.pilot(cluster, "hail", "hail")
-	end
-end
 
 function idle()
 	if stopping then
