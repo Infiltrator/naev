@@ -66,7 +66,7 @@ function accept()
 
 	misn.accept()
 
-	var.push("del1Progress", 1) -- DONT KNOW IF THIS WILL WORK LOL TODO change name
+	var.push("del1progress", 1) -- DONT KNOW IF THIS WILL WORK LOL TODO change name
 
 	misn.setTitle(misn_title)
 	misn.setReward(misn_reward)
@@ -88,7 +88,7 @@ function accept()
 end
 
 function enter()
-   del1progress = var.peek("del1Progress")
+   del1progress = var.peek("del1progress")
 
 	if del1progress == 1 and system.cur() == system.get(sysname[1]) then
 		eclipse = pilot.add("Empire Pacifier", "def", vec2.new(0, 0))[1]
@@ -120,6 +120,8 @@ function enter()
 end
 
 function board()
+del1progress = var.peek("del1progress")
+if del1progress == 1 and system.cur() == system.get(sysname[1]) then
 	tk.msg(title[2], string.format(text[2]))
 	
 	carg_id = misn.addCargo("X", 0) -- TODO name this thing
@@ -130,6 +132,16 @@ function board()
 	misn.setMarker(system.get(sysname[2]), "misc")
 
 	player.unboard()
+elseif del1progress == 3 and system.cur() == system.get(sysname[3]) then
+	tk.msg(title[4], string.format(text[4]))
+	player.pay( credits )
+	player.refuel()
+	player.unboard()
+	cluster:setHealth(100, 100)
+	cluster:control(false)
+	cluster:changeAI("flee")
+	misn.finish(true)
+	end
 end
 
 function unboard()
@@ -141,6 +153,9 @@ end
 
 -- TODO THIS MUST BE BROKEN
 function hail()
+del1progress = var.peek("del1progress")
+
+if del1progress == 1 and system.cur() == system.get(sysname[2]) then
 	tk.msg(title[3], string.format(text[3]))
 
 	misn.osdDestroy()
@@ -156,6 +171,14 @@ function hail()
 	jessica:setHealth(0,0)
 	
 	evt.finish(true)
+	end -- TODO HERE STARTS THE BROKENNESS. This one should make it stop and disable when you hail so you can board it.
+elseif del1progress == 3 and system.cur() == system.get(sysname[3] then
+	if talked then
+		cluster:cleartask()
+		cluster:brake()
+		stopping = true
+		hook.pilot(cluster, "board", "board")
+    end
 end
 --[[ 100% brokenness may or may not end here. Should I add anything to segue to the next event? And it probably wont self-destruct ]]--
 
@@ -168,24 +191,4 @@ function idle()
 		cluster:goto(vec2.new(-400, -400), false)
 		cluster:goto(vec2.new( 400, -400), false)
 	end
-end
-
-function hail()
-	if talked then
-		cluster:cleartask()
-		cluster:brake()
-		stopping = true
-		hook.pilot(cluster, "board", "board")
-    end
-end
-
-function board()
-	tk.msg(title[4], string.format(text[4]))
-	player.pay( credits )
-	player.refuel()
-	player.unboard()
-	cluster:setHealth(100, 100)
-	cluster:control(false)
-	cluster:changeAI("flee")
-	misn.finish(true)
 end
