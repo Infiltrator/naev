@@ -39,6 +39,7 @@ else -- default english
 
 	osd_title = "Del"
 
+   osd_msg = {}
 	osd_msg[1] = "Go to Eclipse in Sigur"
 	osd_msg[2] = "Go to Cluster One in Toadis"
 
@@ -63,7 +64,7 @@ end
 function accept()
 	tk.msg(title[2], string.format(text[2]))
 
-	misn.accept
+	misn.accept()
 
 	var.push("del1Progress", 1) -- DONT KNOW IF THIS WILL WORK LOL TODO change name
 
@@ -129,12 +130,13 @@ function enter()
 			jessica:rename(shipname2)
 			jessica:hailPlayer()
 				hook.pilot(jessica, "hail", "hail")
+   end
 end
 -- TODO THIS MUST BE BROKEN
 function hail()
 	tk.msg(title[3], string.format(text[3]))
 
-	misn.osdDestroy
+	misn.osdDestroy()
 
 	osd_msg1 = string.format(osd_msg[1])
 	osd_msg2 = string.format(osd_msg[2])
@@ -142,7 +144,7 @@ function hail()
 	misn.osdCreate(osd_title, {osd_msg1, osd_msg2, osd_xmsg})
 	misn.osdActive(3)
 
-	del1progress = 3
+   var.push("del1progress", 3)
 
 	jessica:setHealth(0,0)
 	
@@ -184,7 +186,7 @@ function hail()
 end
 
 function board()
-	tk.msg(title[4], string.format(text[4])
+	tk.msg(title[4], string.format(text[4]))
 	player.pay( credits )
 	player.refuel()
 	player.unboard()
