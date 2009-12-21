@@ -10,8 +10,8 @@
 function create ()
 	schroedinger = pilot.add("Schroedinger")[1]
 
-	hook.schroedinger(schroedinger, "jump", "finish")
-	hook.schroedinger(schroedinger, "death", "finish")
+	hook.pilot(schroedinger, "jump", "finish")
+	hook.pilot(schroedinger, "death", "finish")
 	hook.land("finish")
 	hook.jumpout("finish")
 
