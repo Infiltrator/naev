@@ -18,6 +18,7 @@ else -- default english
 	misn_desc = "A foreigner gave you a mysterious mission." -- Lol change this
 	credits = 120000 -- Oooh may be adjustable maybe
 	title = {}
+	title[0] = "Hai"
 	title[1] = "Money for nothing"
 	title[2] = "X" -- TODO
 	title[3] = "Y" -- TODO
@@ -32,6 +33,7 @@ else -- default english
 	sysname3 = "Ingot" -- Where Cluster One is
 	
 	text = {}
+	text[0] = [[WOULD YOU LIKE TO ACCEPT MEIN MISSION?]]
 	text[1] = [[Move some stuff from Eclipse to Cluster One.]]
 	text[2] = [[Boarding Eclipse. You see a note left by someone telling you to take X. Its suspicious that its an Empire ship. As you undock you see empire ships in the distance.]]
 	text[3] = [["Hello this is an automated message.." Jessicas message to tell you that you go to Ingot lol "Self-destruct in 10"]]
@@ -53,7 +55,7 @@ else -- default english
 end
 
 function create ()
-	if tk.choice(title[1], text[1], acceptbutton, declinebutton) == 1 then
+	if tk.choice(title[0], text[0], acceptbutton, declinebutton) == 1 then
 		accept()
 	else
 		tk.msg(refusetitle, refusetext)
@@ -62,7 +64,7 @@ function create ()
 end
 
 function accept()
-	tk.msg(title[2], string.format(text[2]))
+	tk.msg(title[1], string.format(text[1]))
 
 	misn.accept()
 

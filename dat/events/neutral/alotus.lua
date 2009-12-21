@@ -15,7 +15,7 @@ function create ()
 	hook.land("finish")
 	hook.jumpout("finish")
 
-	hailie = evt.timerStart("hailme", 9001)
+	hailie = evt.timerStart("hailme", 3000)
 end
 
 -- In Soviet Russia Schroedinger hails YOU
