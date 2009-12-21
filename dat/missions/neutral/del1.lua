@@ -28,7 +28,7 @@ else -- default english
 	shipname3 = "Cluster One" -- "New" ship/baddie ship
 
 	sysname1 = "Sigur" -- Where Eclipse is TODO maybe change it
-	sysname2 = "Toadis" -- Where Cluster One is supposed to be
+	sysname2 = "Toaxis" -- Where Cluster One is supposed to be
 	sysname3 = "Ingot" -- Where Cluster One is
 	
 	text = {}
@@ -72,8 +72,8 @@ function accept()
 	misn.setReward(misn_reward)
 	misn.setDesc(misn_desc)
 
-	osd_msg1 = string.format(osd[1])
-	osd_msg2 = string.format(osd[2])
+	osd_msg1 = string.format(osd_msg[1])
+	osd_msg2 = string.format(osd_msg[2])
 	misn.osdCreate(osd_title, {osd_msg1, osd_msg2})
 	misn.osdActive(1)
 
