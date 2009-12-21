@@ -1,11 +1,14 @@
 --[[
-Event for starting the Del series of missions or maybe 1 mission involving a cat and strange characters that possible speak in poems and/or song lyrics
+
+	Event for starting the Del series of missions or maybe 1 mission involving a cat and strange characters that possible speak in poems and/or song lyrics
+
+	Author: Del
+
 ]]--
 
 
 function create ()
-	schroedinger = pilot.add("Schroedinger")
-		schroedinger:setFaction("Independent")
+	schroedinger = pilot.add("Schroedinger")[1]
 
 	hook.schroedinger(schroedinger, "jump", "finish")
 	hook.schroedinger(schroedinger, "death", "finish")

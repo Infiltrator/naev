@@ -2,7 +2,7 @@
 <Fleets>
  <fleet name="Schroedinger">
   <ai>trader</ai>
-  <faction>Civilian</faction>
+  <faction>Independent</faction>
   <flags>
    <guard />
   </flags>
