@@ -129,14 +129,20 @@ if del1progress == 1 then
  
 	misn.osdActive(2)
 	misn.setMarker(system.get(sysname[2]), "misc")
+
+	lancelot = pilot.add("Empire Lancelot", "def", vec2.new(-500,0))
+	lancelot:setFaction(faction.get("Empire"))
+	lancelot:rename("Empire FAST RESPONSE SUPER COMMANDO TURBO NUTTER UNIT Lancelot")
+	lancelot:setHostile() -- TODO maybe make it broadcast something funny
+
  
-	player.unboard() -- Offblast! But does this make you unboard automatically? I think you could use enter once again for this, or maybe not..
+	--player.unboard() -- Offblast! But does this make you unboard automatically? I think you could use enter once again for this, or maybe not..
 elseif del1progress == 3 then
 	tk.msg(title[4], string.format(text[4]))
 
    player.pay( credits )
    player.refuel()
-   player.unboard()
+   --player.unboard()
 
    cluster:setHealth(100, 100)
    cluster:control(false)
@@ -146,12 +152,12 @@ elseif del1progress == 3 then
 	end
 end
 
-function unboard()
+--[[function unboard()
 	lancelot = pilot.add("Empire Lancelot", "def", vec2.new(-500,0))
 	lancelot:setFaction(faction.get("Empire"))
 	lancelot:rename("Empire FAST RESPONSE SUPER COMMANDO TURBO NUTTER UNIT Lancelot")
 	lancelot:setHostile() -- TODO maybe make it broadcast something funny
-end
+end]]
 
 function hail()
 if ship.get(ship.name()) == shipname[2] then
