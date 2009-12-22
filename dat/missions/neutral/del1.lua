@@ -116,7 +116,7 @@ elseif del1progress == 3 and system.cur() == system.get(sysname[3]) then
 		cluster:control()
 		cluster:goto(vec2.new( 400, -400), false)
 
-	hook.pilot(cluster, "board", "board")
+	--hook.pilot(cluster, "board", "board")
 	hook.pilot(cluster, "idle", "idle")
 	hook.pilot(cluster, "hail", "hail")
 	end
@@ -182,9 +182,10 @@ if del1progress == 2 then
  
 	jessica:setHealth(0,0) -- I dont think this will work. pilot.setHealth
  
-	evt.finish(true)
-elseif ship.get(ship.name()) == shipname[3] then
+--	evt.finish(true)
+-- elseif ship.get(ship.name()) == shipname[3] then
 -- TODO this should make cluster stop and disable when you hail it so you can board it
+elseif del1progress == 3 then
 	cluster:cleartask()
    cluster:brake()
    stopping = true
