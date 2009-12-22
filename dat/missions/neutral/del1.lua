@@ -21,7 +21,8 @@ title = {}
 	title[1] = "Money for nothing"
 	title[2] = "X" -- TODO
 	title[3] = "Y" -- TODO
-	title[4] = "Mission Accomplished"
+	title[4] = "Roger dat"
+	title[5] = "Mission Accomplished"
 	 
 shipname = {}
 	shipname[1] = "Eclipse" -- "Abandoned" ship
@@ -38,7 +39,8 @@ text = {}
 	text[1] = [[Move some stuff from Eclipse to Cluster One.]]
 	text[2] = [[Boarding Eclipse. You see a note left by someone telling you to take X. Its suspicious that its an Empire ship. As you undock you see empire ships in the distance.]]
 	text[3] = [["Hello this is an automated message.." Jessicas message to tell you that you go to Ingot lol "Self-destruct in 10"]]
-	text[4] = [["One of these days.." "Ahem." Gratz have monies. AND HE HAS A CAT THE PERSON WHO IS THERE.]]
+	text[4] = [[Welcome on board lol]]
+	text[5] = [["One of these days.." "Ahem." Gratz have monies. AND HE HAS A CAT THE PERSON WHO IS THERE.]]
  
 osd_title = misn_title
 osd_msg = "Go to %s in %s."
@@ -131,6 +133,8 @@ if del1progress == 1 then
 	misn.osdActive(2)
 	misn.setMarker(system.get(sysname[2]), "misc")
 
+	player.unboard()
+
 	lancelot = pilot.add("Empire Lancelot", "def", vec2.new( -347, 531 ))[1]
 		lancelot:setFaction(faction.get("Empire"))
 		lancelot:rename("Empire FAST RESPONSE SUPER COMMANDO TURBO NUTTER UNIT Lancelot")
@@ -140,10 +144,11 @@ if del1progress == 1 then
 		lancelot:attack(player.pilot())
  
 elseif del1progress == 3 then
-	tk.msg(title[4], string.format(text[4]))
+	tk.msg(title[5], string.format(text[5]))
 
    player.pay( credits )
    player.refuel()
+	player.unboard()
 
    cluster:setHealth(100, 100)
    cluster:control(false)
@@ -172,6 +177,8 @@ if del1progress == 2 then
  
 	jessica:setHealth(0,0)
 elseif del1progress == 3 then
+	tk.msg(title[4], string.format(text[4]))
+
 	cluster:cleartask()
    cluster:brake()
    stopping = true
