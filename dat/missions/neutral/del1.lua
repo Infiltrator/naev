@@ -122,7 +122,7 @@ elseif del1progress == 3 and system.cur() == system.get(sysname[3]) then
 		cluster:rename(shipname[3])
 		cluster:setInvincible()
 		cluster:control()
-		cluster:goto(vec2.new( 400, -400), false)
+		cluster:goto(vec2.new( rnd.rnd(0,427), rnd.rnd(-531,0) ), false)
 
 	hook.pilot(cluster, "idle", "idle")
 	hook.pilot(cluster, "hail", "hail")
@@ -207,10 +207,10 @@ function idle()
 if stopping then
 	cluster:disable()
 else
-	cluster:goto(vec2.new( 400, 400), false)
-	cluster:goto(vec2.new(-400, 400), false)
-	cluster:goto(vec2.new(-400, -400), false)
-	cluster:goto(vec2.new( 400, -400), false)
+	cluster:goto(vec2.new( rnd.rnd(0,351), rnd.rnd(0,390) ), false)
+	cluster:goto(vec2.new( rnd.rnd(-518,0), rnd.rnd(0,418) ), false)
+	cluster:goto(vec2.new( rnd.rnd(-485,0), rnd.rnd(-432,0) ), false)
+	cluster:goto(vec2.new( rnd.rnd(0,452), rnd.rnd(-392,0) ), false)
 	end
 end
 
