@@ -133,7 +133,7 @@ if del1progress == 1 then
 	misn.osdActive(2)
 	misn.setMarker(system.get(sysname[2]), "misc")
 
-	player.unboard()
+	--player.unboard()
 
 	lancelot = pilot.add("Empire Lancelot", "def", vec2.new( -347, 531 ))[1]
 		lancelot:setFaction(faction.get("Empire"))
@@ -142,6 +142,19 @@ if del1progress == 1 then
 
 		lancelot:control()
 		lancelot:attack(player.pilot())
+
+
+		if tk.choice(title[0], text[0], acceptbutton, declinebutton) == 1 then
+			player.unboard()
+		else
+				lancelot2 = pilot.add("Empire Lancelot", "def", vec2.new( 210, 531 ))[1]
+				lancelot2:setFaction(faction.get("Empire"))
+		lancelot2:rename("Empire FAST RESPONSE SUPER COMMANDO TURBO NUTTER UNIT Lancelot")
+		lancelot2:setHostile() -- TODO maybe make it broadcast something funny
+
+		lancelot2:control()
+		lancelot2:attack(player.pilot())
+		end
  
 elseif del1progress == 3 then
 	tk.msg(title[5], string.format(text[5]))
