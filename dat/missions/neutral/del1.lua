@@ -11,59 +11,66 @@ Basic plot: Someone hails you and tells you to move some stuff from Eclipse to C
 lang = naev.lang()
 if lang == "es" then
 else -- default english
-misn_title = "Del" -- TODO
-misn_reward = [["It's a gas"]]
-misn_desc = "A foreigner gave you a mysterious mission." -- Lol change 	this
-credits = 120000 -- Oooh may be adjustable maybe
+	misn_title = "Del" -- TODO
+	misn_reward = [["It's a gas"]]
+	misn_desc = "A foreigner gave you a mysterious mission." -- Lol change 	this
+	credits = 120000 -- Oooh may be adjustable maybe
 
-title = {}
-	title[0] = "Hai"
-	title[1] = "Money for nothing"
-	title[2] = "X" -- TODO
-	title[3] = "Y" -- TODO
-	title[4] = "Roger dat"
-	title[5] = "Mission Accomplished"
-	 
-shipname = {}
-	shipname[1] = "Eclipse" -- "Abandoned" ship
-	shipname[2] = "Jessica" -- Drone informant boi
-	shipname[3] = "Cluster One" -- "New" ship/baddie ship
- 
-sysname = {}
-	sysname[1] = "Sigur" -- Where Eclipse is TODO maybe change it
-	sysname[2] = "Toaxis" -- Where Cluster One is supposed to be
-	sysname[3] = "Ingot" -- Where Cluster One is
- 
-text = {}
+	shipname = {}
+		shipname[1] = "Eclipse" -- "Abandoned" ship
+		shipname[2] = "Jessica" -- Drone informant boi
+		shipname[3] = "Cluster One" -- "New" ship/baddie ship
+
+	sysname = {}
+		sysname[1] = "Sigur" -- TODO maybe change it
+		sysname[2] = "Toaxis"
+		sysname[3] = "Ingot"
+
+	-- OSD
+	osd_title = misn_title
+	osd_msg = "Fly to the %s system and dock with (board) %s"
+
+	title = {}
+	text = {}
+	
+	-- All dialogue and related stuff
+	title[0] = "Is there anybody out there?" -- Probably change :D
 	text[0] = [[WOULD YOU LIKE TO ACCEPT MEIN MISSION?]]
+
+		acceptbutton = "Accept"
+		declinebutton = "Decline"
+
+	title[1] = "Money for nothing" -- Could maybe be kept
 	text[1] = [[Move some stuff from Eclipse to Cluster One.]]
+
+	title[2] = "X" -- TODO
 	text[2] = [[Boarding Eclipse. You see a note left by someone telling you to take X. Its suspicious that its an Empire ship. You hear a ship in the distance and rush to your own ship.]]
+
+		tktitle = "Do you want to stay on the ship?" -- Title or text would probably have to be changed, maybe no title at all? If that works
+		tktext = "Do you want to stay on the ship?"
+
+			yes = "No" 
+			no = "Yes"
+
+	title[3] = "Y" -- TODO
 	text[3] = [["Hello this is an automated message.." Jessicas message to tell you that you go to Ingot lol "Self-destruct in 10"]]
+
+	title[4] = "Roger dat"
 	text[4] = [[Welcome on board lol]]
-	text[5] = [["One of these days.." "Ahem." Gratz have monies. AND HE HAS A CAT THE PERSON WHO IS THERE.]]
 
-	tktitle = "Do you want to stay on the ship?"
-	tktext = "Do you want to stay on the ship?"
+	title[5] = "Mission Accomplished"
+	text[5] = [["One of these days.." "Ahem." Gratz have monies. AND HE HAS A CAT THE PERSON WHO IS THERE.]] -- Cat is optional
 
-	yes = "No"
-	no = "Yes"
- 
-osd_title = misn_title
-osd_msg = "Fly to the %s system and dock with (board) %s"
- 
 refusetitle = "Loser"
 refusetext = "Ownt"
- 
-acceptbutton = "Accept"
-declinebutton = "Decline"
 end
 
 function create ()
-if tk.choice(title[0], text[0], acceptbutton, declinebutton) == 1 then
-	accept()
-else
-	tk.msg(refusetitle, refusetext)
-	abort()
+	if tk.choice(title[0], text[0], acceptbutton, declinebutton) == 1 then
+		accept()
+	else
+		tk.msg(refusetitle, refusetext)
+		abort()
 	end
 end
 
@@ -95,8 +102,8 @@ end
 
 function enter()
    del1progress = var.peek("del1progress")
-if del1progress == 1 and system.cur() == system.get(sysname[1]) then
-	eclipse = pilot.add("Empire Pacifier", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
+	if del1progress == 1 and system.cur() == system.get(sysname[1]) then
+		eclipse = pilot.add("Empire Pacifier", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
 		eclipse:rename(shipname[1])
  
 		eclipse:setFaction(faction.get("Independent"))
@@ -104,10 +111,10 @@ if del1progress == 1 and system.cur() == system.get(sysname[1]) then
 		eclipse:disable()
 		eclipse:setInvincible(true)
  
-	hook.pilot(eclipse, "board", "board")
-	hook.pilot(eclipse, "death", "abort")
-elseif del1progress == 2 and system.cur() == system.get(sysname[2]) then
-	jessica = pilot.add("Trader Llama", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-1000,1000) ))[1]
+		hook.pilot(eclipse, "board", "board")
+		hook.pilot(eclipse, "death", "abort")
+	elseif del1progress == 2 and system.cur() == system.get(sysname[2]) then
+		jessica = pilot.add("Trader Llama", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-1000,1000) ))[1]
 		jessica:setFaction(faction.get("Independent"))
 		jessica:rename(shipname[2])
 		jessica:hailPlayer()
@@ -116,31 +123,31 @@ elseif del1progress == 2 and system.cur() == system.get(sysname[2]) then
 		jessica:follow(player.pilot())
 
 	hook.pilot(jessica, "hail", "hail")
-elseif del1progress == 3 and system.cur() == system.get(sysname[3]) then
-	cluster = pilot.add("Trader Quicksilver", "trader", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750, 750) ), false)[1]
+	elseif del1progress == 3 and system.cur() == system.get(sysname[3]) then
+		cluster = pilot.add("Trader Quicksilver", "trader", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750, 750) ), false)[1]
 		cluster:setFaction(faction.get("Independent"))
 		cluster:rename(shipname[3])
 		cluster:setInvincible()
 		cluster:control()
 		cluster:goto(vec2.new( rnd.rnd(0,427), rnd.rnd(-531,0) ), false)
 
-	hook.pilot(cluster, "idle", "idle")
-	hook.pilot(cluster, "hail", "hail")
+		hook.pilot(cluster, "idle", "idle")
+		hook.pilot(cluster, "hail", "hail")
 	end
 end
 
 function board()
-if del1progress == 1 then
-	tk.msg(title[2], string.format(text[2]))
+	if del1progress == 1 then
+		tk.msg(title[2], string.format(text[2]))
  
-	carg_id = misn.addCargo("Food", 1) -- TODO Make it something other than food
+		carg_id = misn.addCargo("Food", 1) -- TODO Make it something other than food
  
-   var.push("del1progress", 2)
+   	var.push("del1progress", 2)
  
-	misn.osdActive(2)
-	misn.setMarker(system.get(sysname[2]), "misc")
+		misn.osdActive(2)
+		misn.setMarker(system.get(sysname[2]), "misc")
 
-	lancelot = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
+		lancelot = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
 		lancelot:setFaction(faction.get("Empire"))
 		lancelot:rename("Empire FAST RESPONSE SUPER COMMANDO TURBO NUTTER UNIT Lancelot")
 		lancelot:setHostile() -- TODO maybe make it broadcast something funny
@@ -151,66 +158,66 @@ if del1progress == 1 then
 		if tk.choice(tktitle, tktext, no, yes) == 2 then
 			player.unboard()
 		else
-				lancelot2 = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-750,750) ))[1]
-				lancelot2:setFaction(faction.get("Empire"))
-		lancelot2:rename("Empire FAST RESPONSE SUPER COMMANDO TURBO NUTTER UNIT Lancelot")
-		lancelot2:setHostile() -- TODO maybe make it broadcast something funny
+			lancelot2 = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-750,750) ))[1]
+			lancelot2:setFaction(faction.get("Empire"))
+			lancelot2:rename("Empire FAST RESPONSE SUPER COMMANDO TURBO NUTTER UNIT Lancelot")
+			lancelot2:setHostile() -- TODO maybe make it broadcast something funny
 
-		lancelot2:control()
-		lancelot2:attack(player.pilot())
+			lancelot2:control()
+			lancelot2:attack(player.pilot())
 		end
  
-elseif del1progress == 3 then
-	tk.msg(title[5], string.format(text[5]))
+	elseif del1progress == 3 then
+		tk.msg(title[5], string.format(text[5]))
 
-   player.pay( credits )
-   player.refuel()
-	player.unboard()
+   	player.pay( credits )
+   	player.refuel()
+		player.unboard()
 
-   cluster:setHealth(100, 100)
-   cluster:control(false)
-   cluster:changeAI("flee")
+   	cluster:setHealth(100, 100)
+   	cluster:control(false)
+   	cluster:changeAI("flee")
 
-   misn.finish(true)
+   	misn.finish(true)
 	end
 end
 
 function hail()
-del1progress = var.peek("del1progress")
-if del1progress == 2 then
+	del1progress = var.peek("del1progress")
+	if del1progress == 2 then
 		tk.msg(title[3], string.format(text[3]))
  
-	misn.osdDestroy()
+		misn.osdDestroy()
  
-	osd_msg1 = string.format(osd_msg, sysname[1], shipname[1])
-	osd_msg2 = string.format(osd_msg, sysname[2], shipname[3])
-	osd_msg3 = string.format(osd_msg, sysname[3], shipname[3])
-	misn.osdCreate(osd_title, {osd_msg1, osd_msg2, osd_msg3})
-	misn.osdActive(3)
+		osd_msg1 = string.format(osd_msg, sysname[1], shipname[1])
+		osd_msg2 = string.format(osd_msg, sysname[2], shipname[3])
+		osd_msg3 = string.format(osd_msg, sysname[3], shipname[3])
+		misn.osdCreate(osd_title, {osd_msg1, osd_msg2, osd_msg3})
+		misn.osdActive(3)
 
-	misn.setMarker(system.get(sysname[3]), "misc")
+		misn.setMarker(system.get(sysname[3]), "misc")
  
-   var.push("del1progress", 3)
+   	var.push("del1progress", 3)
  
-	jessica:setHealth(0,0)
-elseif del1progress == 3 then
-	tk.msg(title[4], string.format(text[4]))
+		jessica:setHealth(0,0)
+	elseif del1progress == 3 then
+		tk.msg(title[4], string.format(text[4]))
 
-	cluster:cleartask()
-   cluster:brake()
-   stopping = true
-   hook.pilot(cluster, "board", "board")
+		cluster:cleartask()
+   	cluster:brake()
+   	stopping = true
+   	hook.pilot(cluster, "board", "board")
    end
 end
 
 function idle()
-if stopping then
-	cluster:disable()
-else
-	cluster:goto(vec2.new( rnd.rnd(0,351), rnd.rnd(0,390) ), false)
-	cluster:goto(vec2.new( rnd.rnd(-518,0), rnd.rnd(0,418) ), false)
-	cluster:goto(vec2.new( rnd.rnd(-485,0), rnd.rnd(-432,0) ), false)
-	cluster:goto(vec2.new( rnd.rnd(0,452), rnd.rnd(-392,0) ), false)
+	if stopping then
+		cluster:disable()
+	else
+		cluster:goto(vec2.new( rnd.rnd(0,351), rnd.rnd(0,390) ), false)
+		cluster:goto(vec2.new( rnd.rnd(-518,0), rnd.rnd(0,418) ), false)
+		cluster:goto(vec2.new( rnd.rnd(-485,0), rnd.rnd(-432,0) ), false)
+		cluster:goto(vec2.new( rnd.rnd(0,452), rnd.rnd(-392,0) ), false)
 	end
 end
 
