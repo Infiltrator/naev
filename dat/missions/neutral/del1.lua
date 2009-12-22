@@ -4,7 +4,7 @@
 
 	Author: Del
 
-Basic plot: Someone hails you and tells you to move some stuff from Eclipse to Cluster One. You go to Eclipse and its TODO an Empire ship (?). And you find something but trip an alarm and youre attacked. Then you go to Toaxis to and are hailed by drone Jessica to go to Ingot and it self-destructs. You go to Ingot and monies come.
+Basic plot: Someone hails you and tells you to move some stuff from Eclipse to Cluster One. You go to Eclipse and its an Empire ship. And you find something but trip an alarm and youre attacked. Then you go to Toaxis to and are hailed by drone Jessica to go to Ingot and it self-destructs. You go to Ingot and monies come.
 ]]--
  
 -- localization stuff, translators would work here
@@ -26,14 +26,14 @@ else -- default english
 		sysname[2] = "Toaxis"
 		sysname[3] = "Ingot"
 
-	-- OSD
+	-- OSD stuff
 	osd_title = misn_title
 	osd_msg = "Fly to the %s system and dock with (board) %s"
 
 	title = {}
 	text = {}
 	
-	-- All dialogue and related stuff
+	-- All dialogue and related
 	title[0] = "Is there anybody out there?" -- Probably change :D
 	text[0] = [[WOULD YOU LIKE TO ACCEPT MEIN MISSION?]]
 
@@ -61,8 +61,8 @@ else -- default english
 	title[5] = "Mission Accomplished"
 	text[5] = [["One of these days.." "Ahem." Gratz have monies. AND HE HAS A CAT THE PERSON WHO IS THERE.]] -- Cat is optional
 
-refusetitle = "Loser"
-refusetext = "Ownt"
+	refusetitle = "Loser"
+	refusetext = "Ownt"
 end
 
 function create ()
