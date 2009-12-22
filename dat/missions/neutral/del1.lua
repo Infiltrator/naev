@@ -148,7 +148,7 @@ if del1progress == 1 then
 		lancelot:control()
 		lancelot:attack(player.pilot())
 
-		if tk.choice(tktitle, tktext, yes, no) == 1 then
+		if tk.choice(tktitle, tktext, no, yes) == 1 then
 			player.unboard()
 		else
 				lancelot2 = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-750,750) ))[1]
