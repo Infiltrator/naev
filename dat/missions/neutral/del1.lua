@@ -104,6 +104,9 @@ elseif del1progress == 2 and system.cur() == system.get(sysname[2]) then
 		jessica:rename(shipname[2])
 		jessica:hailPlayer()
 
+		jessica:control()
+		jessica:follow(player.pilot())
+
 	hook.pilot(jessica, "hail", "hail")
 elseif del1progress == 3 and system.cur() == system.get(sysname[3]) then
 	cluster = pilot.add("Trader Quicksilver", "trader", vec2.new(-400,-400), false)[1]
@@ -130,7 +133,7 @@ if del1progress == 1 then
 	misn.osdActive(2)
 	misn.setMarker(system.get(sysname[2]), "misc")
 
-	lancelot = pilot.add("Empire Lancelot", "def", vec2.new(-500,0))[1]
+	lancelot = pilot.add("Empire Lancelot", "def", vec2.new( -347, 531 ))[1]
 		lancelot:setFaction(faction.get("Empire"))
 		lancelot:rename("Empire FAST RESPONSE SUPER COMMANDO TURBO NUTTER UNIT Lancelot")
 		lancelot:setHostile() -- TODO maybe make it broadcast something funny
