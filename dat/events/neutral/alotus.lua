@@ -9,13 +9,15 @@
 
 function create ()
 	schroedinger = pilot.add("Schroedinger", "def", vec2.new( 739, -231 ))[1]
+		schroedinger:control()
+		schroedinger:follow(player.pilot())
 
 	hook.pilot(schroedinger, "jump", "finish")
 	hook.pilot(schroedinger, "death", "finish")
 	hook.land("finish")
 	hook.jumpout("finish")
 
-	hailie = evt.timerStart("hailme", 3000)
+	hailie = evt.timerStart("hailme", 6000)
 end
 
 -- In Soviet Russia Schroedinger hails YOU
@@ -26,6 +28,9 @@ end
 
 -- You hail Schroedinger, not in Soviet Russia
 function hail()
+	schroedinger:control(false)
+	schroedinger:changeAI("flee")
+
 	evt.misnStart("Del") -- Del=WIP
 	evt.finish(true)
 end
