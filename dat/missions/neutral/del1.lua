@@ -123,9 +123,9 @@ function board() -- It would probably be best to make this use ship.get or ship.
 if del1progress == 1 then
 	tk.msg(title[2], string.format(text[2]))
  
-	carg_id = misn.addCargo("X", 0) -- TODO name this thing
+	carg_id = misn.addCargo("Food", 1) -- TODO Make it something other than food
  
-	del1progress = 2
+   var.push("del1progress", 2)
  
 	misn.osdActive(2)
 	misn.setMarker(system.get(sysname[2]), "misc")
