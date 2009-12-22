@@ -172,9 +172,9 @@ if del1progress == 2 then
  
 	misn.osdDestroy()
  
-	osd_msg1 = string.format(osd_msg)
-	osd_msg2 = string.format(osd_msg)
-	osd_msg3 = string.format(osd_msg)
+	osd_msg1 = string.format(osd_msg, shipname[1], shipname[1]) -- TODO make these what they should be
+	osd_msg2 = string.format(osd_msg, shipname[1], shipname[1])
+	osd_msg3 = string.format(osd_msg, shipname[1], shipname[1])
 	misn.osdCreate(osd_title, {osd_msg1, osd_msg2, osd_msg3})
 	misn.osdActive(3)
  
