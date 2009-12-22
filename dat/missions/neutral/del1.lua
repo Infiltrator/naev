@@ -165,7 +165,9 @@ end
 end]]
 
 function hail()
-if ship.get(ship.name()) == shipname[2] then
+del1progress = var.peek("del1progress")
+--if ship.get(ship.name()) == shipname[2] then
+if del1progress == 2 then
 		tk.msg(title[3], string.format(text[3]))
  
 	misn.osdDestroy()
