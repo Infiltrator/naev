@@ -38,7 +38,7 @@ text = {}
 	text[1] = [[Move some stuff from Eclipse to Cluster One.]]
 	text[2] = [[Boarding Eclipse. You see a note left by someone telling you to take X. Its suspicious that its an Empire ship. As you undock you see empire ships in the distance.]]
 	text[3] = [["Hello this is an automated message.." Jessicas message to tell you that you go to Ingot lol "Self-destruct in 10"]]
-	text[4] = [[Gratz have monies. AND HE HAS A CAT THE PERSON WHO IS THERE]]
+	text[4] = [["One of these days.." "Ahem." Gratz have monies. AND HE HAS A CAT THE PERSON WHO IS THERE.]]
  
 osd_title = "Del"
 osd_msg = "Go to %s in %s."
@@ -49,7 +49,7 @@ refusetext = "Ownt"
 acceptbutton = "Accept"
 declinebutton = "Decline"
 end
- 
+
 function create ()
 if tk.choice(title[0], text[0], acceptbutton, declinebutton) == 1 then
 	accept()
@@ -58,7 +58,7 @@ else
 	abort()
 	end
 end
- 
+
 function accept()
 	tk.msg(title[1], string.format(text[1]))
  
@@ -84,42 +84,43 @@ function accept()
 	hook.takeoff("takeoff")
 	hook.enter("enter")
 end
- 
+
 function enter()
    del1progress = var.peek("del1progress")
-
 if del1progress == 1 and system.cur() == system.get(sysname[1]) then
 	eclipse = pilot.add("Empire Pacifier", "def", vec2.new(0, 0))[1]
-	eclipse:rename(shipname[1])
+		eclipse:rename(shipname[1])
  
-	eclipse:setFaction(faction.get("Independent"))
+		eclipse:setFaction(faction.get("Independent"))
  
-	eclipse:disable()
-	eclipse:setInvincible(true)
+		eclipse:disable()
+		eclipse:setInvincible(true)
  
 	hook.pilot(eclipse, "board", "board")
 	hook.pilot(eclipse, "death", "abort")
 elseif del1progress == 2 and system.cur() == system.get(sysname[2]) then
 	jessica = pilot.add("Trader Llama", "def", vec2.new(0, 500))[1]
-	jessica:setFaction(faction.get("Independent"))
-	jessica:rename(shipname[2])
-	jessica:hailPlayer()
+		jessica:setFaction(faction.get("Independent"))
+		jessica:rename(shipname[2])
+		jessica:hailPlayer()
 
 	hook.pilot(jessica, "hail", "hail")
 elseif del1progress == 3 and system.cur() == system.get(sysname[3]) then
 	cluster = pilot.add("Trader Quicksilver", "trader", vec2.new(-400,-400), false)[1]
-	cluster:setFaction(faction.get("Independent"))
-	cluster:rename(shipname[3])
-	cluster:setInvincible()
-	cluster:control()
-	cluster:goto(vec2.new( 400, -400), false)
+		cluster:setFaction(faction.get("Independent"))
+		cluster:rename(shipname[3])
+		cluster:setInvincible()
+		cluster:control()
+		cluster:goto(vec2.new( 400, -400), false)
 
+	hook.pilot(cluster, "board", "board")
 	hook.pilot(cluster, "idle", "idle")
 	hook.pilot(cluster, "hail", "hail")
 	end
 end
 
-function board()
+function board() -- It would probably be best to make this use ship.get or ship.name
+if ship.get(ship.name()) == shipname[1] then
 	tk.msg(title[2], string.format(text[2]))
  
 	carg_id = misn.addCargo("X", 0) -- TODO name this thing
@@ -129,13 +130,21 @@ function board()
 	misn.osdActive(2)
 	misn.setMarker(system.get(sysname[2]), "misc")
  
-	player.unboard() -- Takeoff!
-end
---[[
-function board()
-	del1progress = var.peek("del1progress")
+	player.unboard() -- Offblast! But does this make you unboard automatically? I think you could use enter once again for this, or maybe not..
+elseif ship.get(ship.name()) == shipname[3] then
+	tk.msg(title[4], string.format(text[4]))
 
-		if del1progress == 1 and system.cur() == ]]--
+   player.pay( credits )
+   player.refuel()
+   player.unboard()
+
+   cluster:setHealth(100, 100)
+   cluster:control(false)
+   cluster:changeAI("flee")
+
+   misn.finish(true)
+	end
+end
 
 function unboard()
 	lancelot = pilot.add("Empire Lancelot", "def", vec2.new(-500,0))
@@ -143,10 +152,10 @@ function unboard()
 	lancelot:rename("Empire FAST RESPONSE SUPER COMMANDO TURBO NUTTER UNIT Lancelot")
 	lancelot:setHostile() -- TODO maybe make it broadcast something funny
 end
- 
--- TODO THIS MUST BE BROKEN
+
 function hail()
-	tk.msg(title[3], string.format(text[3]))
+if ship.get(ship.name()) == shipname[2] then
+		tk.msg(title[3], string.format(text[3]))
  
 	misn.osdDestroy()
  
@@ -161,9 +170,15 @@ function hail()
 	jessica:setHealth(0,0) -- I dont think this will work. pilot.setHealth
  
 	evt.finish(true)
+elseif ship.get(ship.name()) == shipname[3] then
+-- TODO this should make cluster stop and disable when you hail it so you can board it
+	cluster:cleartask()
+   cluster:brake()
+   stopping = true
+   hook.pilot(cluster, "board", "board")
+   end
 end
---[[ 100% brokenness may or may not end here. Should I add anything to segue to the next event? And it probably wont self-destruct ]]--
- 
+
 function idle()
 if stopping then
 	cluster:disable()
@@ -173,27 +188,4 @@ else
 	cluster:goto(vec2.new(-400, -400), false)
 	cluster:goto(vec2.new( 400, -400), false)
 	end
-end
- 
-function hail() -- TODO this should make cluster stop and disable when you hail it so you can board it
-if talked then
-	cluster:cleartask()
-   cluster:brake()
-   stopping = true
-   hook.pilot(cluster, "board", "board")
-   end
-end
- 
-function board()
-	tk.msg(title[4], string.format(text[4]))
-
-   player.pay( credits )
-   player.refuel()
-   player.unboard()
-
-   cluster:setHealth(100, 100)
-   cluster:control(false)
-   cluster:changeAI("flee")
-
-   misn.finish(true)
 end
