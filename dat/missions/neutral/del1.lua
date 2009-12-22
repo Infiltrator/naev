@@ -41,6 +41,12 @@ text = {}
 	text[3] = [["Hello this is an automated message.." Jessicas message to tell you that you go to Ingot lol "Self-destruct in 10"]]
 	text[4] = [[Welcome on board lol]]
 	text[5] = [["One of these days.." "Ahem." Gratz have monies. AND HE HAS A CAT THE PERSON WHO IS THERE.]]
+
+	tktitle = "Do you want to stay on the ship?"
+	tktext = "Do you want to stay on the ship?"
+
+	yes = "No"
+	no = "Yes"
  
 osd_title = misn_title
 osd_msg = "Fly to the %s system and dock with (board) %s"
@@ -133,8 +139,6 @@ if del1progress == 1 then
 	misn.osdActive(2)
 	misn.setMarker(system.get(sysname[2]), "misc")
 
-	--player.unboard()
-
 	lancelot = pilot.add("Empire Lancelot", "def", vec2.new( -347, 531 ))[1]
 		lancelot:setFaction(faction.get("Empire"))
 		lancelot:rename("Empire FAST RESPONSE SUPER COMMANDO TURBO NUTTER UNIT Lancelot")
@@ -143,8 +147,7 @@ if del1progress == 1 then
 		lancelot:control()
 		lancelot:attack(player.pilot())
 
-
-		if tk.choice(title[0], text[0], acceptbutton, declinebutton) == 1 then
+		if tk.choice(tktitle, tktext, yes, no) == 1 then
 			player.unboard()
 		else
 				lancelot2 = pilot.add("Empire Lancelot", "def", vec2.new( 210, 531 ))[1]
