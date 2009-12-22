@@ -120,7 +120,7 @@ elseif del1progress == 3 and system.cur() == system.get(sysname[3]) then
 end
 
 function board() -- It would probably be best to make this use ship.get or ship.name
-if ship.get(ship.name()) == shipname[1] then
+if del1progress == 1 then
 	tk.msg(title[2], string.format(text[2]))
  
 	carg_id = misn.addCargo("X", 0) -- TODO name this thing
@@ -131,7 +131,7 @@ if ship.get(ship.name()) == shipname[1] then
 	misn.setMarker(system.get(sysname[2]), "misc")
  
 	player.unboard() -- Offblast! But does this make you unboard automatically? I think you could use enter once again for this, or maybe not..
-elseif ship.get(ship.name()) == shipname[3] then
+elseif del1progress == 3 then
 	tk.msg(title[4], string.format(text[4]))
 
    player.pay( credits )
