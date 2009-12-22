@@ -55,7 +55,6 @@ if tk.choice(title[0], text[0], acceptbutton, declinebutton) == 1 then
 	accept()
 else
 	tk.msg(refusetitle, refusetext)
-	--abort()
 	end
 end
 
@@ -64,7 +63,7 @@ function accept()
  
 	misn.accept()
  
-	var.push("del1progress", 1) -- DONT KNOW IF THIS WILL WORK LOL TODO change name
+	var.push("del1progress", 1) -- TODO maybe change name
  
 	misn.setTitle(misn_title)
 	misn.setReward(misn_reward)
@@ -78,7 +77,7 @@ function accept()
 	misn.setMarker(system.get(sysname[1]), "misc")
 
 	talked=false
-	stopping=false -- Do these talked and stopping actually do anything?
+	stopping=false
 
 	hook.land("land")
 	hook.takeoff("takeoff")
@@ -116,13 +115,12 @@ elseif del1progress == 3 and system.cur() == system.get(sysname[3]) then
 		cluster:control()
 		cluster:goto(vec2.new( 400, -400), false)
 
-	--hook.pilot(cluster, "board", "board")
 	hook.pilot(cluster, "idle", "idle")
 	hook.pilot(cluster, "hail", "hail")
 	end
 end
 
-function board() -- It would probably be best to make this use ship.get or ship.name
+function board()
 if del1progress == 1 then
 	tk.msg(title[2], string.format(text[2]))
  
@@ -141,13 +139,11 @@ if del1progress == 1 then
 		lancelot:control()
 		lancelot:attack(player.pilot())
  
-	--player.unboard() -- Offblast! But does this make you unboard automatically? I think you could use enter once again for this, or maybe not..
 elseif del1progress == 3 then
 	tk.msg(title[4], string.format(text[4]))
 
    player.pay( credits )
    player.refuel()
-   --player.unboard()
 
    cluster:setHealth(100, 100)
    cluster:control(false)
@@ -157,22 +153,14 @@ elseif del1progress == 3 then
 	end
 end
 
---[[function unboard()
-	lancelot = pilot.add("Empire Lancelot", "def", vec2.new(-500,0))
-	lancelot:setFaction(faction.get("Empire"))
-	lancelot:rename("Empire FAST RESPONSE SUPER COMMANDO TURBO NUTTER UNIT Lancelot")
-	lancelot:setHostile() -- TODO maybe make it broadcast something funny
-end]]
-
 function hail()
 del1progress = var.peek("del1progress")
---if ship.get(ship.name()) == shipname[2] then
 if del1progress == 2 then
 		tk.msg(title[3], string.format(text[3]))
  
 	misn.osdDestroy()
  
-	osd_msg1 = string.format(osd_msg, shipname[1], sysname[1]) -- TODO make these what they should be
+	osd_msg1 = string.format(osd_msg, shipname[1], sysname[1])
 	osd_msg2 = string.format(osd_msg, shipname[3], sysname[2])
 	osd_msg3 = string.format(osd_msg, shipname[3], sysname[3])
 	misn.osdCreate(osd_title, {osd_msg1, osd_msg2, osd_msg3})
@@ -182,11 +170,7 @@ if del1progress == 2 then
  
    var.push("del1progress", 3)
  
-	jessica:setHealth(0,0) -- I dont think this will work. pilot.setHealth
- 
---	evt.finish(true)
--- elseif ship.get(ship.name()) == shipname[3] then
--- TODO this should make cluster stop and disable when you hail it so you can board it
+	jessica:setHealth(0,0)
 elseif del1progress == 3 then
 	cluster:cleartask()
    cluster:brake()
