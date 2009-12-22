@@ -40,7 +40,7 @@ text = {}
 	text[3] = [["Hello this is an automated message.." Jessicas message to tell you that you go to Ingot lol "Self-destruct in 10"]]
 	text[4] = [["One of these days.." "Ahem." Gratz have monies. AND HE HAS A CAT THE PERSON WHO IS THERE.]]
  
-osd_title = "Del"
+osd_title = misn_title
 osd_msg = "Go to %s in %s."
  
 refusetitle = "Loser"
@@ -172,11 +172,13 @@ if del1progress == 2 then
  
 	misn.osdDestroy()
  
-	osd_msg1 = string.format(osd_msg, shipname[1], shipname[1]) -- TODO make these what they should be
-	osd_msg2 = string.format(osd_msg, shipname[1], shipname[1])
-	osd_msg3 = string.format(osd_msg, shipname[1], shipname[1])
+	osd_msg1 = string.format(osd_msg, shipname[1], sysname[1]) -- TODO make these what they should be
+	osd_msg2 = string.format(osd_msg, shipname[3], sysname[2])
+	osd_msg3 = string.format(osd_msg, shipname[3], sysname[3])
 	misn.osdCreate(osd_title, {osd_msg1, osd_msg2, osd_msg3})
 	misn.osdActive(3)
+
+	misn.setMarker(system.get(sysname[3]), "misc")
  
    var.push("del1progress", 3)
  
