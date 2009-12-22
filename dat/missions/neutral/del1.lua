@@ -55,7 +55,7 @@ if tk.choice(title[0], text[0], acceptbutton, declinebutton) == 1 then
 	accept()
 else
 	tk.msg(refusetitle, refusetext)
-	abort()
+	--abort()
 	end
 end
 
