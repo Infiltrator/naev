@@ -63,6 +63,7 @@ if tk.choice(title[0], text[0], acceptbutton, declinebutton) == 1 then
 	accept()
 else
 	tk.msg(refusetitle, refusetext)
+	abort()
 	end
 end
 
@@ -95,7 +96,7 @@ end
 function enter()
    del1progress = var.peek("del1progress")
 if del1progress == 1 and system.cur() == system.get(sysname[1]) then
-	eclipse = pilot.add("Empire Pacifier", "def", vec2.new(0, 0))[1]
+	eclipse = pilot.add("Empire Pacifier", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
 		eclipse:rename(shipname[1])
  
 		eclipse:setFaction(faction.get("Independent"))
@@ -106,7 +107,7 @@ if del1progress == 1 and system.cur() == system.get(sysname[1]) then
 	hook.pilot(eclipse, "board", "board")
 	hook.pilot(eclipse, "death", "abort")
 elseif del1progress == 2 and system.cur() == system.get(sysname[2]) then
-	jessica = pilot.add("Trader Llama", "def", vec2.new(0, 500))[1]
+	jessica = pilot.add("Trader Llama", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-1000,1000) ))[1]
 		jessica:setFaction(faction.get("Independent"))
 		jessica:rename(shipname[2])
 		jessica:hailPlayer()
@@ -116,7 +117,7 @@ elseif del1progress == 2 and system.cur() == system.get(sysname[2]) then
 
 	hook.pilot(jessica, "hail", "hail")
 elseif del1progress == 3 and system.cur() == system.get(sysname[3]) then
-	cluster = pilot.add("Trader Quicksilver", "trader", vec2.new(-400,-400), false)[1]
+	cluster = pilot.add("Trader Quicksilver", "trader", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750, 750) ), false)[1]
 		cluster:setFaction(faction.get("Independent"))
 		cluster:rename(shipname[3])
 		cluster:setInvincible()
@@ -139,7 +140,7 @@ if del1progress == 1 then
 	misn.osdActive(2)
 	misn.setMarker(system.get(sysname[2]), "misc")
 
-	lancelot = pilot.add("Empire Lancelot", "def", vec2.new( -347, 531 ))[1]
+	lancelot = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
 		lancelot:setFaction(faction.get("Empire"))
 		lancelot:rename("Empire FAST RESPONSE SUPER COMMANDO TURBO NUTTER UNIT Lancelot")
 		lancelot:setHostile() -- TODO maybe make it broadcast something funny
@@ -150,7 +151,7 @@ if del1progress == 1 then
 		if tk.choice(tktitle, tktext, yes, no) == 1 then
 			player.unboard()
 		else
-				lancelot2 = pilot.add("Empire Lancelot", "def", vec2.new( 210, 531 ))[1]
+				lancelot2 = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-750,750) ))[1]
 				lancelot2:setFaction(faction.get("Empire"))
 		lancelot2:rename("Empire FAST RESPONSE SUPER COMMANDO TURBO NUTTER UNIT Lancelot")
 		lancelot2:setHostile() -- TODO maybe make it broadcast something funny
@@ -211,4 +212,8 @@ else
 	cluster:goto(vec2.new(-400, -400), false)
 	cluster:goto(vec2.new( 400, -400), false)
 	end
+end
+
+function abort()
+	misn.finish(false)
 end

@@ -8,7 +8,7 @@
 
 
 function create ()
-	schroedinger = pilot.add("Schroedinger", "def", vec2.new( 739, -231 ))[1]
+	schroedinger = pilot.add("Schroedinger", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-1000,1000) ))[1]
 		schroedinger:control()
 		schroedinger:follow(player.pilot())
 
