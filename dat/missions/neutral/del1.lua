@@ -73,7 +73,7 @@ function create ()
 	end
 end
 
-function accept()
+function accept() -- Accept mission, set general stuff
 	tk.msg(title[1], string.format(text[1]))
  
 	misn.accept()
@@ -91,16 +91,14 @@ function accept()
  
 	misn.setMarker(system.get(sysname[1]), "misc")
 
-	talked=false
 	stopping=false
 
 	hook.enter("enter")
 end
 
-function enter()
+function enter() -- When entering system
    del1progress = var.peek("del1progress")
-	del1spawn = var.peek("del1spawn")
-	if del1progress == 1 and system.cur() == system.get(sysname[1]) then
+	if del1progress == 1 and system.cur() == system.get(sysname[1]) then -- Entering sysname[1]
 		eclipse = pilot.add("Empire Pacifier", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
 		eclipse:rename(shipname[1])
  
@@ -111,7 +109,7 @@ function enter()
  
 		hook.pilot(eclipse, "board", "board")
 		hook.pilot(eclipse, "death", "abort")
-	elseif del1progress == 2 and system.cur() == system.get(sysname[2]) then
+	elseif del1progress == 2 and system.cur() == system.get(sysname[2]) then -- Entering sysname[2]
 		jessica = pilot.add("Trader Llama", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-1000,1000) ))[1]
 		jessica:setFaction(faction.get("Independent"))
 		jessica:rename(shipname[2])
@@ -121,7 +119,7 @@ function enter()
 		jessica:follow(player.pilot())
 
 	hook.pilot(jessica, "hail", "hail")
-	elseif del1progress == 3 and system.cur() == system.get(sysname[3]) then
+	elseif del1progress == 3 and system.cur() == system.get(sysname[3]) then -- Entering sysname[3]
 		cluster = pilot.add("Trader Quicksilver", "trader", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750, 750) ), false)[1]
 		cluster:setFaction(faction.get("Independent"))
 		cluster:rename(shipname[3])
@@ -135,9 +133,8 @@ function enter()
 spawn()
 end
 
-function board()
-	if del1progress == 1 then
-		--stay = tk.choice(title[2], string.format(text[2]))
+function board() -- When boarding ships
+	if del1progress == 1 then -- When boarding shipname[1]
  
 		carg_id = misn.addCargo("Food", 1) -- TODO Make it something other than food
  
@@ -155,11 +152,11 @@ function board()
 		lancelot:control()
 		lancelot:attack(player.pilot())
 
-		if tk.choice(title[2], string.format(text[2]), yes, no) == 2 then
+		if tk.choice(title[2], string.format(text[2]), yes, no) == 2 then -- If you don't stay on the ship
 			var.push("del1spawn", 1)
 
 			player.unboard()
-		else
+		else -- If you stay on the ship
 			var.push("del1spawn", 2)
 
 			lancelot2 = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-750,750) ))[1]
@@ -171,7 +168,7 @@ function board()
 			lancelot2:attack(player.pilot())
 		end
  
-	elseif del1progress == 3 then
+	elseif del1progress == 3 then -- Boarding shipname[3]
 		tk.msg(title[5], string.format(text[5]))
 
    	player.pay( credits )
@@ -186,10 +183,10 @@ function board()
 	end
 end
 
-function spawn()
+function spawn() -- Spawn ships when entering systems
 	del1spawn = var.peek("del1spawn")
 	spawnrnd = rnd.rnd(0,100)
-	if del1spawn == 1 and system.cur() ~= system.get(sysname[3]) then
+	if del1spawn == 1 and system.cur() ~= system.get(sysname[3]) then -- If you didn't stay on shipname[1]
 		if spawnrnd >= 65 then
 			lancelot = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
 			lancelot:setFaction(faction.get("Empire"))
@@ -199,7 +196,7 @@ function spawn()
 			lancelot:control()
 			lancelot:attack(player.pilot())
 		end
-	elseif del1spawn == 2 and system.cur() ~= system.get(sysname[3]) then
+	elseif del1spawn == 2 and system.cur() ~= system.get(sysname[3]) then -- If you stayed on shipname[1]
 		if spawnrnd >= 55 then
 			lancelot = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
 			lancelot:setFaction(faction.get("Empire"))
@@ -221,9 +218,9 @@ function spawn()
 	end
 end
 
-function hail()
+function hail() -- When hailing ships
 	del1progress = var.peek("del1progress")
-	if del1progress == 2 then
+	if del1progress == 2 then -- Hailing shipname[2]
 		tk.msg(title[3], string.format(text[3]))
  
 		misn.osdDestroy()
@@ -239,7 +236,7 @@ function hail()
    	var.push("del1progress", 3)
  
 		jessica:setHealth(0,0)
-	elseif del1progress == 3 then
+	elseif del1progress == 3 then -- Hailing shipname[3]
 		tk.msg(title[4], string.format(text[4]))
 
 		cluster:cleartask()
@@ -249,7 +246,7 @@ function hail()
    end
 end
 
-function idle()
+function idle() -- shipname[3] behaviour
 	if stopping then
 		cluster:disable()
 	else
@@ -260,7 +257,7 @@ function idle()
 	end
 end
 
-function abort()
+function abort() -- If you decline or abort the mission
 	tk.msg(refusetitle, refusetext)
 	misn.finish(false)
 end
