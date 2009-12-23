@@ -101,7 +101,6 @@ end
 function enter()
    del1progress = var.peek("del1progress")
 	del1spawn = var.peek("del1spawn")
-	spawnrnd = rnd.rnd(0,100)
 	if del1progress == 1 and system.cur() == system.get(sysname[1]) then
 		eclipse = pilot.add("Empire Pacifier", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
 		eclipse:rename(shipname[1])
@@ -134,40 +133,7 @@ function enter()
 		hook.pilot(cluster, "idle", "idle")
 		hook.pilot(cluster, "hail", "hail")
 	end
-
-	if del1spawn == 1 and system.cur() ~= system.get(sysname[3]) then
-		if spawnrnd >= 65 then
-			lancelot = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
-			lancelot:setFaction(faction.get("Empire"))
-			lancelot:rename(shipname[4])
-			lancelot:setHostile() -- TODO maybe make it broadcast something funny
-
-			lancelot:control()
-			lancelot:attack(player.pilot())
-		else
-		end
-	elseif del1spawn == 2 and system.cur() ~= system.get(sysname[3]) then
-		if spawnrnd >= 55 then
-			lancelot = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
-			lancelot:setFaction(faction.get("Empire"))
-			lancelot:rename(shipname[4])
-			lancelot:setHostile() -- TODO maybe make it broadcast something funny
-
-			lancelot:control()
-			lancelot:attack(player.pilot())
-			if spawnrnd >= 85 then
-				lancelot2 = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-750,750) ))[1]
-				lancelot2:setFaction(faction.get("Empire"))
-				lancelot2:rename(shipname[4])
-				lancelot2:setHostile() -- TODO maybe make it broadcast something funny
-
-				lancelot2:control()
-				lancelot2:attack(player.pilot())
-			else
-			end
-		else
-		end
-	end
+spawn()
 end
 
 function board()
@@ -218,6 +184,41 @@ function board()
    	cluster:changeAI("flee")
 
    	misn.finish(true)
+	end
+end
+
+function spawn()
+	del1spawn = var.peek("del1spawn")
+	spawnrnd = rnd.rnd(0,100)
+	if del1spawn == 1 and system.cur() ~= system.get(sysname[3]) then
+		if spawnrnd >= 65 then
+			lancelot = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
+			lancelot:setFaction(faction.get("Empire"))
+			lancelot:rename(shipname[4])
+			lancelot:setHostile() -- TODO maybe make it broadcast something funny
+
+			lancelot:control()
+			lancelot:attack(player.pilot())
+		end
+	elseif del1spawn == 2 and system.cur() ~= system.get(sysname[3]) then
+		if spawnrnd >= 55 then
+			lancelot = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
+			lancelot:setFaction(faction.get("Empire"))
+			lancelot:rename(shipname[4])
+			lancelot:setHostile() -- TODO maybe make it broadcast something funny
+
+			lancelot:control()
+			lancelot:attack(player.pilot())
+			if spawnrnd >= 85 then
+				lancelot2 = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-750,750) ))[1]
+				lancelot2:setFaction(faction.get("Empire"))
+				lancelot2:rename(shipname[4])
+				lancelot2:setHostile() -- TODO maybe make it broadcast something funny
+
+				lancelot2:control()
+				lancelot2:attack(player.pilot())
+			end
+		end
 	end
 end
 
