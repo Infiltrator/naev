@@ -20,7 +20,7 @@ else -- default english
 		shipname[1] = "Eclipse" -- "Abandoned" ship
 		shipname[2] = "Jessica" -- Drone informant boi
 		shipname[3] = "Cluster One" -- "New" ship/baddie ship
-		shipname[4] = "Empire FAST RESPONSE SUPER COMMANDO TURBO NUTTER UNIT Lancelot"
+		shipname[4] = "IRP Lancelot" -- IRP=Immediate Response Patrol ©lumikant
 
 	sysname = {}
 		sysname[1] = "Sigur" -- TODO maybe change it
@@ -69,7 +69,6 @@ function create ()
 	if tk.choice(title[0], text[0], acceptbutton, declinebutton) == 1 then
 		accept()
 	else
-		tk.msg(refusetitle, refusetext)
 		abort()
 	end
 end
@@ -262,5 +261,6 @@ function idle()
 end
 
 function abort()
+	tk.msg(refusetitle, refusetext)
 	misn.finish(false)
 end
