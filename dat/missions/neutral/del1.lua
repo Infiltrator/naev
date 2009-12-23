@@ -45,13 +45,12 @@ else -- default english
 	text[1] = [[Move some stuff from Eclipse to Cluster One.]]
 
 	title[2] = "X" -- TODO
-	text[2] = [[Boarding Eclipse. You see a note left by someone telling you to take X. Its suspicious that its an Empire ship. You hear a ship in the distance and rush to your own ship.]]
+	text[2] = [[Boarding Eclipse. You see a note left by someone telling you to take X. Its suspicious that its an Empire ship. You hear someone broadcasting angrily.
 
-		tktitle = "Do you want to stay on the ship?" -- Title or text would probably have to be changed, maybe no title at all? If that works
-		tktext = "Do you want to stay on the ship?"
+Do you want to stay on the ship?]]
 
-			yes = "No" 
-			no = "Yes"
+			yes = "Yes" 
+			no = "No"
 
 	title[3] = "Y" -- TODO
 	text[3] = [["Hello this is an automated message.." Jessicas message to tell you that you go to Ingot lol "Self-destruct in 10"]]
@@ -102,7 +101,7 @@ end
 function enter()
    del1progress = var.peek("del1progress")
 	del1spawn = var.peek("del1spawn")
-	spawnrnd = rnd.rnd()
+	spawnrnd = rnd.rnd(0,100)
 	if del1progress == 1 and system.cur() == system.get(sysname[1]) then
 		eclipse = pilot.add("Empire Pacifier", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
 		eclipse:rename(shipname[1])
@@ -137,7 +136,7 @@ function enter()
 	end
 
 	if del1spawn == 1 and system.cur() ~= system.get(sysname[3]) then
-		if spawnrnd >= 0.65 then
+		if spawnrnd >= 65 then
 			lancelot = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
 			lancelot:setFaction(faction.get("Empire"))
 			lancelot:rename(shipname[4])
@@ -148,7 +147,7 @@ function enter()
 		else
 		end
 	elseif del1spawn == 2 and system.cur() ~= system.get(sysname[3]) then
-		if spawnrnd >= 0.55 then
+		if spawnrnd >= 55 then
 			lancelot = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
 			lancelot:setFaction(faction.get("Empire"))
 			lancelot:rename(shipname[4])
@@ -156,7 +155,7 @@ function enter()
 
 			lancelot:control()
 			lancelot:attack(player.pilot())
-			if spawnrnd >= 0.85 then
+			if spawnrnd >= 85 then
 				lancelot2 = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-750,750) ))[1]
 				lancelot2:setFaction(faction.get("Empire"))
 				lancelot2:rename(shipname[4])
@@ -173,7 +172,7 @@ end
 
 function board()
 	if del1progress == 1 then
-		tk.msg(title[2], string.format(text[2]))
+		--stay = tk.choice(title[2], string.format(text[2]))
  
 		carg_id = misn.addCargo("Food", 1) -- TODO Make it something other than food
  
@@ -191,7 +190,7 @@ function board()
 		lancelot:control()
 		lancelot:attack(player.pilot())
 
-		if tk.choice(tktitle, tktext, no, yes) == 2 then
+		if tk.choice(title[2], string.format(text[2]), yes, no) == 2 then
 			var.push("del1spawn", 1)
 
 			player.unboard()
