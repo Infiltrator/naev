@@ -23,9 +23,9 @@ else -- default english
 		shipname[4] = "IRP Lancelot" -- IRP=Immediate Response Patrol ©lumikant
 
 	sysname = {}
-		sysname[1] = "Sigur" -- TODO maybe change it
-		sysname[2] = "Toaxis"
-		sysname[3] = "Ingot"
+		sysname[1] = "NGC-8037" -- TODO maybe change it
+		sysname[2] = "Arandon"
+		sysname[3] = "Oriantis"
 
 	-- OSD stuff
 	osd_title = misn_title
