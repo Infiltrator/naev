@@ -20,6 +20,7 @@ else -- default english
 		shipname[1] = "Eclipse" -- "Abandoned" ship
 		shipname[2] = "Jessica" -- Drone informant boi
 		shipname[3] = "Cluster One" -- "New" ship/baddie ship
+		shipname[4] = "Empire FAST RESPONSE SUPER COMMANDO TURBO NUTTER UNIT Lancelot"
 
 	sysname = {}
 		sysname[1] = "Sigur" -- TODO maybe change it
@@ -95,13 +96,13 @@ function accept()
 	talked=false
 	stopping=false
 
-	hook.land("land")
-	hook.takeoff("takeoff")
 	hook.enter("enter")
 end
 
 function enter()
    del1progress = var.peek("del1progress")
+	del1spawn = var.peek("del1spawn")
+	spawnrnd = rnd.rnd()
 	if del1progress == 1 and system.cur() == system.get(sysname[1]) then
 		eclipse = pilot.add("Empire Pacifier", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
 		eclipse:rename(shipname[1])
@@ -134,6 +135,40 @@ function enter()
 		hook.pilot(cluster, "idle", "idle")
 		hook.pilot(cluster, "hail", "hail")
 	end
+
+	if del1spawn == 1 and system.cur() ~= system.get(sysname[3]) then
+		if spawnrnd >= 0.65 then
+			lancelot = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
+			lancelot:setFaction(faction.get("Empire"))
+			lancelot:rename(shipname[4])
+			lancelot:setHostile() -- TODO maybe make it broadcast something funny
+
+			lancelot:control()
+			lancelot:attack(player.pilot())
+		else
+		end
+	elseif del1spawn == 2 and system.cur() ~= system.get(sysname[3]) then
+		if spawnrnd >= 0.55 then
+			lancelot = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
+			lancelot:setFaction(faction.get("Empire"))
+			lancelot:rename(shipname[4])
+			lancelot:setHostile() -- TODO maybe make it broadcast something funny
+
+			lancelot:control()
+			lancelot:attack(player.pilot())
+			if spawnrnd >= 0.85 then
+				lancelot2 = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-750,750) ))[1]
+				lancelot2:setFaction(faction.get("Empire"))
+				lancelot2:rename(shipname[4])
+				lancelot2:setHostile() -- TODO maybe make it broadcast something funny
+
+				lancelot2:control()
+				lancelot2:attack(player.pilot())
+			else
+			end
+		else
+		end
+	end
 end
 
 function board()
@@ -147,20 +182,25 @@ function board()
 		misn.osdActive(2)
 		misn.setMarker(system.get(sysname[2]), "misc")
 
+
 		lancelot = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
 		lancelot:setFaction(faction.get("Empire"))
-		lancelot:rename("Empire FAST RESPONSE SUPER COMMANDO TURBO NUTTER UNIT Lancelot")
+		lancelot:rename(shipname[4])
 		lancelot:setHostile() -- TODO maybe make it broadcast something funny
 
 		lancelot:control()
 		lancelot:attack(player.pilot())
 
 		if tk.choice(tktitle, tktext, no, yes) == 2 then
+			var.push("del1spawn", 1)
+
 			player.unboard()
 		else
+			var.push("del1spawn", 2)
+
 			lancelot2 = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-750,750) ))[1]
 			lancelot2:setFaction(faction.get("Empire"))
-			lancelot2:rename("Empire FAST RESPONSE SUPER COMMANDO TURBO NUTTER UNIT Lancelot")
+			lancelot2:rename(shipname[4])
 			lancelot2:setHostile() -- TODO maybe make it broadcast something funny
 
 			lancelot2:control()
