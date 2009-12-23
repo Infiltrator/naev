@@ -187,7 +187,7 @@ function spawn() -- Spawn ships when entering systems
 	del1spawn = var.peek("del1spawn")
 	spawnrnd = rnd.rnd(0,100)
 	if del1spawn == 1 and system.cur() ~= system.get(sysname[3]) then -- If you didn't stay on shipname[1]
-		if spawnrnd >= 65 then
+		if spawnrnd >= 60 then
 			lancelot = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
 			lancelot:setFaction(faction.get("Empire"))
 			lancelot:rename(shipname[4])
@@ -197,7 +197,7 @@ function spawn() -- Spawn ships when entering systems
 			lancelot:attack(player.pilot())
 		end
 	elseif del1spawn == 2 and system.cur() ~= system.get(sysname[3]) then -- If you stayed on shipname[1]
-		if spawnrnd >= 55 then
+		if spawnrnd >= 45 then
 			lancelot = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
 			lancelot:setFaction(faction.get("Empire"))
 			lancelot:rename(shipname[4])
