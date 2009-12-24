@@ -36,37 +36,49 @@ else -- default english
 	
 	-- All dialogue and related
 	title[0] = "Is there anybody out there?" -- Probably change :D
-	text[0] = [[WOULD YOU LIKE TO ACCEPT MEIN MISSION?]]
+	text[0] = [[Your video screen shows dancing static. You're about to bang it to get it working when a voice-only transmission comes through. 
+   "Hey, you're %s, right? Yeah... We've heard of you.
+   "Listen, mate, we need you to do something for us. Nothing fancy, mind, just a little... courier mission.
+   "You interested?"]]
 
 		acceptbutton = "Accept"
 		declinebutton = "Decline"
 
 	title[1] = "Money for nothing" -- Could maybe be kept
-	text[1] = [[Move some stuff from Eclipse to Cluster One.]]
+	text[1] = [["Okay, great. Well, we need you to move some... stuff from the %s in the %s system to the %s. Real quiet-like, ya know?
+   "They'll then meet you in the %s system. Don't keep them waiting. Well, good luck, mate."]]
 
-	title[2] = "X" -- TODO
-	text[2] = [[Boarding Eclipse. You see a note left by someone telling you to take X. Its suspicious that its an Empire ship. You hear someone broadcasting angrily.
+	title[2] = "Dust and echoes" -- TODO
+	text[2] = [[You board the %s. It seems strangely deserted. As you proceed down the hall, you realise you're on an abandoned Empire ship. Heading onto the bridge, you notice a note left on one of the consoles.
+   "Go to the cargo bay and grab the box labelled 'X'."
+   Suddenly, the comm goes off and you hear someone broadcasting angrily. Something about stolen property or some nonsense like that.
+   Do you want to idle on the ship or grab the cargo and run?]]
 
-Do you want to stay on the ship?]]
+			yes = "Idle around"
+			no = "Run!"
 
-			yes = "Yes" 
-			no = "No"
+	title[3] = "Helpless Automaton" -- TODO
+	text[3] = [[Another voice-only transmission comes through on your comm.
+   "Hello. This is an automated message. There has been a change of plans. You are to proceed to the %s system, where you will board the %s.
+   In order to protect all those involved from unwanted attention, this messenger will self-destruct in 10 seconds..."]]
 
-	title[3] = "Y" -- TODO
-	text[3] = [["Hello this is an automated message.." Jessicas message to tell you that you go to Ingot lol "Self-destruct in 10"]]
-
-	title[4] = "Roger dat"
-	text[4] = [[Welcome on board lol]]
+	title[4] = "Space Odessy"
+	text[4] = [[Yet another voice-only transmission casts static across your video screen. You're begining to wonder why you payed 2.2k for it.
+   "Ah, %s, we've been expecting you. Glad to see you got my message. Excellent. Well, don't dawdle, then. Hurry up and dock."
+   If you didn't know better, you'd say that disembodied voice was purring.]]
 
 	title[5] = "Mission Accomplished"
-	text[5] = [["One of these days.." "Ahem." Gratz have monies. AND HE HAS A CAT THE PERSON WHO IS THERE.]] -- Cat is optional
+	text[5] = [[You proceed to your airlock, expecting to finally see the face of your employer when you're greeted by two men wearing visored helmets, bearing a mark that appears to be a white bushy tail.
+   "We'll take it from here," says one of the men, extending his hand. You hesitantly hand the box over.
+   "Here's something for your troubles," says the other, handing you the silver case he was holding. "It's plenty fair, we reckon."
+   With that, they both turn around, walk off, and seal their airlock. This would appear to be the end of your little adventure.]]
 
 	refusetitle = "Loser"
-	refusetext = "Ownt"
+	refusetext = [["Alright, mate. Suit yerself, then."]]
 end
 
 function create ()
-	if tk.choice(title[0], text[0], acceptbutton, declinebutton) == 1 then
+	if tk.choice(title[0], string.format(text[0], player.name()), acceptbutton, declinebutton) == 1 then
 		accept()
 	else
 		abort()
@@ -74,7 +86,7 @@ function create ()
 end
 
 function accept() -- Accept mission, set general stuff
-	tk.msg(title[1], string.format(text[1]))
+	tk.msg(title[1], string.format(text[1], shipname[1], sysname[1], shipname[3], sysname[2]))
  
 	misn.accept()
  
@@ -152,7 +164,7 @@ function board() -- When boarding ships
 		lancelot:control()
 		lancelot:attack(player.pilot())
 
-		if tk.choice(title[2], string.format(text[2]), yes, no) == 2 then -- If you don't stay on the ship
+		if tk.choice(title[2], string.format(text[2], shipname[1]), yes, no) == 2 then -- If you don't stay on the ship
 			var.push("del1spawn", 1)
 
 			player.unboard()
@@ -221,7 +233,7 @@ end
 function hail() -- When hailing ships
 	del1progress = var.peek("del1progress")
 	if del1progress == 2 then -- Hailing shipname[2]
-		tk.msg(title[3], string.format(text[3]))
+		tk.msg(title[3], string.format(text[3], sysname[3], shipname[3]))
  
 		misn.osdDestroy()
  
@@ -237,7 +249,7 @@ function hail() -- When hailing ships
  
 		jessica:setHealth(0,0)
 	elseif del1progress == 3 then -- Hailing shipname[3]
-		tk.msg(title[4], string.format(text[4]))
+		tk.msg(title[4], string.format(text[4], player.name()))
 
 		cluster:cleartask()
    	cluster:brake()
