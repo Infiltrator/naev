@@ -121,16 +121,16 @@ function enter() -- When entering system
  
 		hook.pilot(eclipse, "board", "board")
 		hook.pilot(eclipse, "death", "abort")
-	elseif del1progress == 2 and system.cur() == system.get(sysname[2]) then -- Entering sysname[2]
-		jessica = pilot.add("Trader Llama", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-1000,1000) ))[1]
-		jessica:setFaction(faction.get("Independent"))
-		jessica:rename(shipname[2])
-		jessica:hailPlayer()
+   elseif del1progress == 2 and system.cur() == system.get(sysname[2]) then -- Entering sysname[2]
+      jessica = pilot.add("Trader Llama", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-1000,1000) ))[1]
+      jessica:setFaction(faction.get("Independent"))
+      jessica:rename(shipname[2])
+      jessica:hailPlayer()
 
-		jessica:control()
-		jessica:follow(player.pilot())
+      jessica:control()
+      jessica:follow(player.pilot())
 
-	hook.pilot(jessica, "hail", "hail")
+      hook.pilot(jessica, "hail", "hail")
 	elseif del1progress == 3 and system.cur() == system.get(sysname[3]) then -- Entering sysname[3]
 		cluster = pilot.add("Trader Quicksilver", "trader", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750, 750) ), false)[1]
 		cluster:setFaction(faction.get("Independent"))
