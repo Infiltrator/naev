@@ -2,7 +2,8 @@
 
 	Del's mission or something
 
-	Author: Del
+	Author, general dictator: Del
+	Dialogue, bugfixing, general ownage: Infiltrator
 
 Basic plot: Someone hails you and tells you to move some stuff from Eclipse to Cluster One. You go to Eclipse and its an Empire ship. And you find something but trip an alarm and youre attacked. Then you go to Toaxis to and are hailed by drone Jessica to go to Ingot and it self-destructs. You go to Ingot and monies come.
 ]]--
@@ -14,7 +15,7 @@ else -- default english
 	misn_title = "Del" -- TODO
 	misn_reward = [["It's a gas"]]
 	misn_desc = "A foreigner gave you a mysterious mission." -- Lol change 	this
-	credits = 120000 -- Oooh may be adjustable maybe
+	credits = rnd.rnd(40000,60000) -- Oooh may be adjustable maybe
 
 	shipname = {}
 		shipname[1] = "Eclipse" -- "Abandoned" ship
@@ -41,39 +42,39 @@ else -- default english
    "Listen, mate, we need you to do something for us. Nothing fancy, mind, just a little... courier mission.
    "You interested?"]]
 
-		acceptbutton = "Accept"
-		declinebutton = "Decline"
+		acceptbutton = "Yes" -- TODO check these Inf
+		declinebutton = "No"
 
-	title[1] = "Money for nothing" -- Could maybe be kept
+	title[1] = "Money for nothing" -- TODO Is ok?
 	text[1] = [["Okay, great. Well, we need you to move some... stuff from the %s in the %s system to the %s. Real quiet-like, ya know?
    "They'll then meet you in the %s system. Don't keep them waiting. Well, good luck, mate."]]
 
-	title[2] = "Dust and echoes" -- TODO
+	title[2] = "Dust and echoes"
 	text[2] = [[You board the %s. It seems strangely deserted. As you proceed down the hall, you realise you're on an abandoned Empire ship. Heading onto the bridge, you notice a note left on one of the consoles.
    "Go to the cargo bay and grab the box labelled 'X'."
    Suddenly, the comm goes off and you hear someone broadcasting angrily. Something about stolen property or some nonsense like that.
-   Do you want to idle on the ship or grab the cargo and run?]]
+   Do you want to idle on the ship or grab the cargo and run?]] -- TODO broadcasting angrily was just something off the top of my head
 
 			yes = "Idle around"
 			no = "Run!"
 
-	title[3] = "Helpless Automaton" -- TODO
+	title[3] = "Helpless Automaton"
 	text[3] = [[Another voice-only transmission comes through on your comm.
    "Hello. This is an automated message. There has been a change of plans. You are to proceed to the %s system, where you will board the %s.
    In order to protect all those involved from unwanted attention, this messenger will self-destruct in 10 seconds..."]]
 
-	title[4] = "Space Odessy"
-	text[4] = [[Yet another voice-only transmission casts static across your video screen. You're begining to wonder why you payed 2.2k for it.
+	title[4] = "Space Odyssey"
+	text[4] = [[Yet another voice-only transmission casts static across your video screen. You're begining to wonder why you paid 2.2k for it.
    "Ah, %s, we've been expecting you. Glad to see you got my message. Excellent. Well, don't dawdle, then. Hurry up and dock."
-   If you didn't know better, you'd say that disembodied voice was purring.]]
+   If you didn't know better, you'd say that disembodied voice was purring.]] -- I LOVE THE LAST SENTENCE I LOVE YOU BOI!! Delete this comment I LOVE YOU
 
-	title[5] = "Mission Accomplished"
+	title[5] = "Mission Accomplished" -- Can be changed
 	text[5] = [[You proceed to your airlock, expecting to finally see the face of your employer when you're greeted by two men wearing visored helmets, bearing a mark that appears to be a white bushy tail.
    "We'll take it from here," says one of the men, extending his hand. You hesitantly hand the box over.
    "Here's something for your troubles," says the other, handing you the silver case he was holding. "It's plenty fair, we reckon."
    With that, they both turn around, walk off, and seal their airlock. This would appear to be the end of your little adventure.]]
 
-	refusetitle = "Loser"
+	refusetitle = "Loser" -- Can very much be changed :D
 	refusetext = [["Alright, mate. Suit yerself, then."]]
 end
 
@@ -90,7 +91,7 @@ function accept() -- Accept mission, set general stuff
  
 	misn.accept()
  
-	var.push("del1progress", 1) -- TODO maybe change name
+	var.push("del1progress", 1)
  
 	misn.setTitle(misn_title)
 	misn.setReward(misn_reward)
