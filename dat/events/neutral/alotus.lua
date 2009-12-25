@@ -8,16 +8,19 @@
 
 
 function create ()
-	schroedinger = pilot.add("Schroedinger", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-1000,1000) ))[1]
+	if var.peek("del1progress") == nil then
+		schroedinger = pilot.add("Schroedinger", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-1000,1000) ))[1]
 		schroedinger:control()
 		schroedinger:follow(player.pilot())
 
-	hook.pilot(schroedinger, "jump", "finish")
-	hook.pilot(schroedinger, "death", "finish")
-	hook.land("finish")
-	hook.jumpout("finish")
+		hook.pilot(schroedinger, "jump", "finish")
+		hook.pilot(schroedinger, "death", "finish")
+		hook.land("finish")
+		hook.jumpout("finish")
 
-	hailie = evt.timerStart("hailme", 6000)
+		hailie = evt.timerStart("hailme", 6000)
+	else
+	end
 end
 
 -- In Soviet Russia Schroedinger hails YOU

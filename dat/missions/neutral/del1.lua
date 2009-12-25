@@ -286,6 +286,8 @@ end
 
 -- Decline/abort
 function abort()
+	var.push("del1progress", nil)
+
 	tk.msg(refusetitle, refusetext)
 	misn.finish(false)
 end
