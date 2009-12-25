@@ -15,12 +15,12 @@ else -- default english
 	misn_title = "Del" -- TODO
 	misn_reward = [["It's a gas"]]
 	misn_desc = "A foreigner gave you a mysterious mission." -- Lol change 	this
-	credits = rnd.rnd(40000,60000) -- Oooh may be adjustable maybe
+	credits = rnd.rnd(40000,60000)
 
 	shipname = {}
 		shipname[1] = "Eclipse" -- "Abandoned" ship
 		shipname[2] = "Jessica" -- Drone informant boi
-		shipname[3] = "Cluster One" -- "New" ship/baddie ship
+		shipname[3] = "Astoria" -- [[TODO I was thinking of calling this one Rosie for Australias but maybe its better for a Mule or something]] "New" ship/baddie ship 
 		shipname[4] = "IRP Lancelot" -- IRP=Immediate Response Patrol ©lumikant
 
 	sysname = {}
@@ -36,7 +36,7 @@ else -- default english
 	text = {}
 	
 	-- All dialogue and related
-	title[0] = "Is there anybody out there?" -- Probably change :D
+	title[0] = "Is there anybody out there?" -- TODO Probably change :D
 	text[0] = [[Your video screen shows dancing static. You're about to bang it to get it working when a voice-only transmission comes through. 
    "Hey, you're %s, right? Yeah... We've heard of you.
    "Listen, mate, we need you to do something for us. Nothing fancy, mind, just a little... courier mission.
@@ -45,7 +45,7 @@ else -- default english
 		acceptbutton = "Yes" -- TODO check these Inf
 		declinebutton = "No"
 
-	title[1] = "Money for nothing" -- TODO Is ok?
+	title[1] = "Money for nothing" -- TODO Is this ok?
 	text[1] = [["Okay, great. Well, we need you to move some... stuff from the %s in the %s system to the %s. Real quiet-like, ya know?
    "They'll then meet you in the %s system. Don't keep them waiting. Well, good luck, mate."]]
 
@@ -61,7 +61,7 @@ else -- default english
 	title[3] = "Helpless Automaton"
 	text[3] = [[Another voice-only transmission comes through on your comm.
    "Hello. This is an automated message. There has been a change of plans. You are to proceed to the %s system, where you will board the %s.
-   In order to protect all those involved from unwanted attention, this messenger will self-destruct in 10 seconds..."]]
+   "In order to protect all those involved from unwanted attention, this messenger will self-destruct in 10 seconds..."]]
 
 	title[4] = "Space Odyssey"
 	text[4] = [[Yet another voice-only transmission casts static across your video screen. You're begining to wonder why you paid 2.2k for it.
@@ -69,12 +69,12 @@ else -- default english
    If you didn't know better, you'd say that disembodied voice was purring.]] -- I LOVE THE LAST SENTENCE I LOVE YOU BOI!! Delete this comment I LOVE YOU
 
 	title[5] = "Mission Accomplished" -- Can be changed
-	text[5] = [[You proceed to your airlock, expecting to finally see the face of your employer when you're greeted by two men wearing visored helmets, bearing a mark that appears to be a white bushy tail.
-   "We'll take it from here," says one of the men, extending his hand. You hesitantly hand the box over.
-   "Here's something for your troubles," says the other, handing you the silver case he was holding. "It's plenty fair, we reckon."
+	text[5] = [[You proceed to your airlock, expecting to finally see the face of your employer when you're greeted by two men wearing visored helmets, bearing odd, disc-shaped black and reflective marks. You also pay attention to the black walls which are adorned with dispersive prisms and accompanying rays of light.
+   "We'll take it from here", says one of the men, extending his hand. You hesitantly hand the box over.
+   "Here's something for your troubles", says the other, handing you the silver case he was holding. "It's plenty fair, we reckon."
    With that, they both turn around, walk off, and seal their airlock. This would appear to be the end of your little adventure.]]
 
-	refusetitle = "Loser" -- Can very much be changed :D
+	refusetitle = "Tunnel visionary" -- TODO is this OK?
 	refusetext = [["Alright, mate. Suit yerself, then."]]
 end
 
@@ -187,6 +187,7 @@ function board() -- When boarding ships
    	player.pay( credits )
    	player.refuel()
 		player.unboard()
+		pilot.setHealth(player.pilot(), 100, 100)
 
    	cluster:setHealth(100, 100)
    	cluster:control(false)
