@@ -70,8 +70,8 @@ else -- default english
 
 	title[5] = "Mission Accomplished" -- Can be changed
 	text[5] = [[You proceed to your airlock, expecting to finally see the face of your employer when you're greeted by two men wearing visored helmets, bearing odd, disc-shaped black and reflective marks. You also pay attention to the black walls which are adorned with dispersive prisms and accompanying rays of light.
-   "We'll take it from here", says one of the men, extending his hand. You hesitantly hand the box over.
-   "Here's something for your troubles", says the other, handing you the silver case he was holding. "It's plenty fair, we reckon."
+   "We'll take it from here," says one of the men, extending his hand. You hesitantly hand the box over.
+   "Here's something for your troubles," says the other, handing you the silver case he was holding. "It's plenty fair, we reckon."
    With that, they both turn around, walk off, and seal their airlock. This would appear to be the end of your little adventure.]]
 
 	refusetitle = "Tunnel visionary" -- TODO is this OK?
