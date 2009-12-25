@@ -20,11 +20,11 @@ else -- default english
 	shipname = {}
 		shipname[1] = "Eclipse" -- "Abandoned" ship
 		shipname[2] = "Jessica" -- Drone informant boi
-		shipname[3] = "Astoria" -- [[TODO I was thinking of calling this one Rosie for Australias but maybe its better for a Mule or something]] "New" ship/baddie ship 
+		shipname[3] = "Astoria" -- "New" ship/baddie ship 
 		shipname[4] = "IRP Lancelot" -- IRP=Immediate Response Patrol ©lumikant
 
 	sysname = {}
-		sysname[1] = "NGC-8037" -- TODO maybe change it
+		sysname[1] = "NGC-8037"
 		sysname[2] = "Arandon"
 		sysname[3] = "Oriantis"
 
@@ -32,10 +32,10 @@ else -- default english
 	osd_title = misn_title
 	osd_msg = "Fly to the %s system and dock with (board) %s"
 
+	-- All dialogue and related
 	title = {}
 	text = {}
 	
-	-- All dialogue and related
 	title[0] = "Is there anybody out there?" -- TODO Probably change :D
 	text[0] = [[Your video screen shows dancing static. You're about to bang it to get it working when a voice-only transmission comes through. 
    "Hey, you're %s, right? Yeah... We've heard of you.
@@ -68,7 +68,7 @@ else -- default english
    "Ah, %s, we've been expecting you. Glad to see you got my message. Excellent. Well, don't dawdle, then. Hurry up and dock."
    If you didn't know better, you'd say that disembodied voice was purring.]] -- I LOVE THE LAST SENTENCE I LOVE YOU BOI!! Delete this comment I LOVE YOU
 
-	title[5] = "Mission Accomplished" -- Can be changed
+	title[5] = "It's a long way to the top"
 	text[5] = [[You proceed to your airlock, expecting to finally see the face of your employer when you're greeted by two men wearing visored helmets, bearing odd, disc-shaped black and reflective marks. You also pay attention to the black walls which are adorned with dispersive prisms and accompanying rays of light.
    "We'll take it from here," says one of the men, extending his hand. You hesitantly hand the box over.
    "Here's something for your troubles," says the other, handing you the silver case he was holding. "It's plenty fair, we reckon."
@@ -86,7 +86,8 @@ function create ()
 	end
 end
 
-function accept() -- Accept mission, set general stuff
+-- Accept mission, set general stuff
+function accept()
 	tk.msg(title[1], string.format(text[1], shipname[1], sysname[1], shipname[3], sysname[2]))
  
 	misn.accept()
@@ -108,10 +109,11 @@ function accept() -- Accept mission, set general stuff
 
 	hook.enter("enter")
 end
-
-function enter() -- When entering system
+-- Entering systems
+function enter()
    del1progress = var.peek("del1progress")
-	if del1progress == 1 and system.cur() == system.get(sysname[1]) then -- Entering sysname[1]
+	if del1progress == 1 and system.cur() == system.get(sysname[1]) then
+	-- Entering sysname[1]
 		eclipse = pilot.add("Empire Pacifier", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
 		eclipse:rename(shipname[1])
  
@@ -122,7 +124,8 @@ function enter() -- When entering system
  
 		hook.pilot(eclipse, "board", "board")
 		hook.pilot(eclipse, "death", "abort")
-   elseif del1progress == 2 and system.cur() == system.get(sysname[2]) then -- Entering sysname[2]
+	elseif del1progress == 2 and system.cur() == system.get(sysname[2]) then
+	-- Entering sysname[2]
       jessica = pilot.add("Trader Llama", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-1000,1000) ))[1]
       jessica:setFaction(faction.get("Independent"))
       jessica:rename(shipname[2])
@@ -132,7 +135,8 @@ function enter() -- When entering system
       jessica:follow(player.pilot())
 
       hook.pilot(jessica, "hail", "hail")
-	elseif del1progress == 3 and system.cur() == system.get(sysname[3]) then -- Entering sysname[3]
+	elseif del1progress == 3 and system.cur() == system.get(sysname[3]) then
+	-- Entering sysname[3]
 		cluster = pilot.add("Trader Quicksilver", "trader", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750, 750) ), false)[1]
 		cluster:setFaction(faction.get("Independent"))
 		cluster:rename(shipname[3])
@@ -146,8 +150,10 @@ function enter() -- When entering system
 spawn()
 end
 
-function board() -- When boarding ships
-	if del1progress == 1 then -- When boarding shipname[1]
+-- Boarding ships
+function board() 
+	if del1progress == 1 then
+	-- Boarding shipname[1]
  
 		carg_id = misn.addCargo("Food", 1) -- TODO Make it something other than food
  
@@ -165,11 +171,13 @@ function board() -- When boarding ships
 		lancelot:control()
 		lancelot:attack(player.pilot())
 
-		if tk.choice(title[2], string.format(text[2], shipname[1]), yes, no) == 2 then -- If you don't stay on the ship
+		if tk.choice(title[2], string.format(text[2], shipname[1]), yes, no) == 2 then
+		-- If you don't stay on the ship
 			var.push("del1spawn", 1)
 
 			player.unboard()
-		else -- If you stay on the ship
+		else 
+		-- If you stay on the ship
 			var.push("del1spawn", 2)
 
 			lancelot2 = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-750,750) ))[1]
@@ -181,7 +189,8 @@ function board() -- When boarding ships
 			lancelot2:attack(player.pilot())
 		end
  
-	elseif del1progress == 3 then -- Boarding shipname[3]
+	elseif del1progress == 3 then
+	-- Boarding shipname[3]
 		tk.msg(title[5], string.format(text[5]))
 
    	player.pay( credits )
@@ -196,11 +205,12 @@ function board() -- When boarding ships
    	misn.finish(true)
 	end
 end
-
-function spawn() -- Spawn ships when entering systems
+-- Spawn ships when entering systems
+function spawn()
 	del1spawn = var.peek("del1spawn")
 	spawnrnd = rnd.rnd(0,100)
-	if del1spawn == 1 and system.cur() ~= system.get(sysname[3]) then -- If you didn't stay on shipname[1]
+	if del1spawn == 1 and system.cur() ~= system.get(sysname[3]) then
+	-- If you didn't stay on shipname[1]
 		if spawnrnd >= 60 then
 			lancelot = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
 			lancelot:setFaction(faction.get("Empire"))
@@ -210,7 +220,8 @@ function spawn() -- Spawn ships when entering systems
 			lancelot:control()
 			lancelot:attack(player.pilot())
 		end
-	elseif del1spawn == 2 and system.cur() ~= system.get(sysname[3]) then -- If you stayed on shipname[1]
+	elseif del1spawn == 2 and system.cur() ~= system.get(sysname[3]) then
+	-- If you stayed on shipname[1]
 		if spawnrnd >= 45 then
 			lancelot = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
 			lancelot:setFaction(faction.get("Empire"))
@@ -232,7 +243,8 @@ function spawn() -- Spawn ships when entering systems
 	end
 end
 
-function hail() -- When hailing ships
+-- Hailing ships
+function hail()
 	del1progress = var.peek("del1progress")
 	if del1progress == 2 then -- Hailing shipname[2]
 		tk.msg(title[3], string.format(text[3], sysname[3], shipname[3]))
@@ -260,7 +272,8 @@ function hail() -- When hailing ships
    end
 end
 
-function idle() -- shipname[3] behaviour
+-- shipname[3] behaviour
+function idle()
 	if stopping then
 		cluster:disable()
 	else
@@ -271,7 +284,8 @@ function idle() -- shipname[3] behaviour
 	end
 end
 
-function abort() -- If you decline or abort the mission
+-- Decline/abort
+function abort()
 	tk.msg(refusetitle, refusetext)
 	misn.finish(false)
 end
