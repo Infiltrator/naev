@@ -124,17 +124,24 @@ function enter()
  
 		hook.pilot(eclipse, "board", "board")
 		hook.pilot(eclipse, "death", "abort")
-	elseif del1progress == 2 and system.cur() == system.get(sysname[2]) then
-	-- Entering sysname[2]
-      jessica = pilot.add("Trader Llama", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-1000,1000) ))[1]
-      jessica:setFaction(faction.get("Independent"))
-      jessica:rename(shipname[2])
-      jessica:hailPlayer()
+   elseif del1progress == 2 then
+      if system.cur() == system.get(sysname[2]) then
+      -- Entering sysname[2]
+         -- The Lancelots magically stop chasing you.
+         var.push("del1spawn", 0)
 
-      jessica:control()
-      jessica:follow(player.pilot())
+         jessica = pilot.add("Trader Llama", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-1000,1000) ))[1]
+         jessica:setFaction(faction.get("Independent"))
+         jessica:rename(shipname[2])
+         jessica:hailPlayer()
 
-      hook.pilot(jessica, "hail", "hail")
+         jessica:control()
+         jessica:follow(player.pilot())
+
+         hook.pilot(jessica, "hail", "hail")
+      else
+         spawn()
+      end
 	elseif del1progress == 3 and system.cur() == system.get(sysname[3]) then
 	-- Entering sysname[3]
 		cluster = pilot.add("Trader Quicksilver", "trader", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750, 750) ), false)[1]
@@ -147,7 +154,6 @@ function enter()
 		hook.pilot(cluster, "idle", "idle")
 		hook.pilot(cluster, "hail", "hail")
 	end
-spawn()
 end
 
 -- Boarding ships
@@ -162,32 +168,16 @@ function board()
 		misn.osdActive(2)
 		misn.setMarker(system.get(sysname[2]), "misc")
 
-
-		lancelot = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
-		lancelot:setFaction(faction.get("Empire"))
-		lancelot:rename(shipname[4])
-		lancelot:setHostile() -- TODO maybe make it broadcast something funny
-
-		lancelot:control()
-		lancelot:attack(player.pilot())
-
 		if tk.choice(title[2], string.format(text[2], shipname[1]), yes, no) == 2 then
 		-- If you don't stay on the ship
 			var.push("del1spawn", 1)
-
 			player.unboard()
 		else 
 		-- If you stay on the ship
 			var.push("del1spawn", 2)
-
-			lancelot2 = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-750,750) ))[1]
-			lancelot2:setFaction(faction.get("Empire"))
-			lancelot2:rename(shipname[4])
-			lancelot2:setHostile() -- TODO maybe make it broadcast something funny
-
-			lancelot2:control()
-			lancelot2:attack(player.pilot())
 		end
+
+      spawn()
  
 	elseif del1progress == 3 then
 	-- Boarding shipname[3]
@@ -205,42 +195,29 @@ function board()
    	misn.finish(true)
 	end
 end
+
 -- Spawn ships when entering systems
+-- Also used when boarding shipname[1]
 function spawn()
-	del1spawn = var.peek("del1spawn")
-	spawnrnd = rnd.rnd(0,100)
-	if del1spawn == 1 and system.cur() ~= system.get(sysname[3]) then
-	-- If you didn't stay on shipname[1]
-		if spawnrnd >= 60 then
-			lancelot = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
-			lancelot:setFaction(faction.get("Empire"))
-			lancelot:rename(shipname[4])
-			lancelot:setHostile() -- TODO maybe make it broadcast something funny
+   del1spawn = var.peek("del1spawn")
 
-			lancelot:control()
-			lancelot:attack(player.pilot())
-		end
-	elseif del1spawn == 2 and system.cur() ~= system.get(sysname[3]) then
-	-- If you stayed on shipname[1]
-		if spawnrnd >= 45 then
-			lancelot = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
-			lancelot:setFaction(faction.get("Empire"))
-			lancelot:rename(shipname[4])
-			lancelot:setHostile() -- TODO maybe make it broadcast something funny
+   for i = 1, del1spawn, 1 do
+      lancelot = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-1000,1000) ))[1]
+      lancelot:setFaction(faction.get("Empire"))
+      lancelot:rename(shipname[4])
+      lancelot:setHostile() -- TODO maybe make it broadcast something funny
 
-			lancelot:control()
-			lancelot:attack(player.pilot())
-			if spawnrnd >= 85 then
-				lancelot2 = pilot.add("Empire Lancelot", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-750,750) ))[1]
-				lancelot2:setFaction(faction.get("Empire"))
-				lancelot2:rename(shipname[4])
-				lancelot2:setHostile() -- TODO maybe make it broadcast something funny
+      lancelot:control()
+      lancelot:attack(player.pilot())
 
-				lancelot2:control()
-				lancelot2:attack(player.pilot())
-			end
-		end
-	end
+      hook.pilot(lancelot, "death", "deadLancelot")
+   end
+end
+
+function deadLancelot()
+   -- If you've killed one, reduce the number of Lancelots chasing you
+   del1spawn = var.peek("del1spawn")
+   var.push("del1spawn", del1spawn - 1)
 end
 
 -- Hailing ships
