@@ -66,7 +66,7 @@ else -- default english
 	title[4] = "Space Odyssey"
 	text[4] = [[Yet another voice-only transmission casts static across your video screen. You're begining to wonder why you paid 2.2k for it.
    "Ah, %s, we've been expecting you. Glad to see you got my message. Excellent. Well, don't dawdle, then. Hurry up and dock."
-   If you didn't know better, you'd say that disembodied voice was purring.]] -- I LOVE THE LAST SENTENCE I LOVE YOU BOI!! Delete this comment I LOVE YOU
+   If you didn't know better, you'd say that disembodied voice was purring.]]
 
 	title[5] = "It's a long way to the top"
 	text[5] = [[You proceed to your airlock, expecting to finally see the face of your employer when you're greeted by two men wearing visored helmets, bearing odd, disc-shaped black and reflective marks. You also pay attention to the black walls which are adorned with dispersive prisms and accompanying rays of light.
@@ -173,12 +173,12 @@ function board()
 
 		if tk.choice(title[2], string.format(text[2], shipname[1]), yes, no) == 2 then
 		-- If you don't stay on the ship
-			var.push("del1spawn", 1)
+			var.push("del1spawn", 1.5)
 			player.unboard()
 
 		else 
 		-- If you stay on the ship
-			var.push("del1spawn", 2)
+			var.push("del1spawn", 1.9)
 		end
 
       spawn()
@@ -221,7 +221,7 @@ end
 function deadLancelot()
    -- If you've killed one, reduce the number of Lancelots chasing you
    del1spawn = var.peek("del1spawn")
-   var.push("del1spawn", del1spawn - 1)
+   var.push("del1spawn", del1spawn - 0.5)
 end
 
 -- Hailing ships
@@ -271,7 +271,8 @@ end
 
 -- Decline/abort
 function abort()
-	var.push("del1progress", nil)
+	var.pop("del1progress")
+	var.pop("del1spawn")
 
 	tk.msg(refusetitle, refusetext)
 	misn.finish(false)
