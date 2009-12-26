@@ -164,7 +164,7 @@ function board()
 	if del1progress == 1 then
 	-- Boarding shipname[1]
  
-		carg_id = misn.addCargo("Food", 1) -- TODO change this to "Sealed box" and mass 0
+		carg_id = misn.addCargo("A sealed box", 0)
  
    	var.push("del1progress", 2)
  
@@ -173,12 +173,12 @@ function board()
 
 		if tk.choice(title[2], string.format(text[2], shipname[1]), yes, no) == 2 then
 		-- If you don't stay on the ship
-			var.push("del1spawn", 1.5)
+			var.push("del1spawn", 1.6)
 			player.unboard()
 
 		else 
 		-- If you stay on the ship
-			var.push("del1spawn", 1.9)
+			var.push("del1spawn", 2)
 		end
 
       spawn()
@@ -221,7 +221,7 @@ end
 function deadLancelot()
    -- If you've killed one, reduce the number of Lancelots chasing you
    del1spawn = var.peek("del1spawn")
-   var.push("del1spawn", del1spawn - 0.5)
+   var.push("del1spawn", del1spawn - 0.6)
 end
 
 -- Hailing ships

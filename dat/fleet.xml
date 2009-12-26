@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Fleets>
- <fleet name="Schroedinger">
-  <ai>trader</ai>
-  <faction>Independent</faction>
-  <flags>
-   <guard />
-  </flags>
-  <pilots>
-   <pilot chance="100" ship="Schroedinger"></pilot>
-  </pilots>
- </fleet>
  <fleet name="Goddard Goddard">
   <ai>goddard</ai>
   <faction>Goddard</faction>
@@ -575,6 +565,16 @@
    <pilot chance="100" ship="Vendetta"></pilot>
    <pilot chance="100" ship="Vendetta"></pilot>
    <pilot chance="100" ship="Vendetta"></pilot>
+  </pilots>
+ </fleet>
+ <fleet name="Schroedinger">
+  <ai>trader</ai>
+  <faction>Independent</faction>
+  <flags>
+   <guard />
+  </flags>
+  <pilots>
+   <pilot chance="100" ship="Schroedinger"></pilot>
   </pilots>
  </fleet>
 </Fleets>

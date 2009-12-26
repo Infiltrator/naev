@@ -1,13 +1,4 @@
 <Events>
- <event name="Alotus">
-  <lua>neutral/alotus</lua>
-  <trigger>enter</trigger>
-  <chance>100</chance>
-  <cond>system.cur():security() &gt;= 75</cond>
-  <flags>
-   <unique />
-  </flags>
- </event>
  <event name="Derelict">
   <lua>neutral/derelict</lua>
   <trigger>enter</trigger>
@@ -66,6 +57,15 @@
   <trigger>enter</trigger>
   <chance>100</chance>
   <cond>var.peek("version") == nil</cond>
+  <flags>
+   <unique />
+  </flags>
+ </event>
+ <event name="Alotus">
+  <lua>neutral/alotus</lua>
+  <trigger>enter</trigger>
+  <chance>100</chance>
+  <cond>system.cur():security() &gt;= 75</cond>
   <flags>
    <unique />
   </flags>

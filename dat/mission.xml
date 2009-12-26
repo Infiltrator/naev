@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Missions>
- <mission name="Del">
-  <lua>neutral/del1</lua>
-  <flags>
-   <unique />
-  </flags>
-  <avail>
-   <chance>100</chance>
-   <location>None</location>
-  </avail>
- </mission>
  <mission name="Tutorial">
   <lua>tutorial</lua>
   <flags>
@@ -429,6 +419,16 @@
    <faction>Dvaered</faction>
    <faction>Frontier</faction>
    <faction>Goddard</faction>
+  </avail>
+ </mission>
+ <mission name="Del">
+  <lua>neutral/del1</lua>
+  <flags>
+   <unique />
+  </flags>
+  <avail>
+   <chance>100</chance>
+   <location>None</location>
   </avail>
  </mission>
 </Missions>
