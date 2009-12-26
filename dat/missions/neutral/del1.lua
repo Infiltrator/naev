@@ -112,6 +112,7 @@ end
 -- Entering systems
 function enter()
    del1progress = var.peek("del1progress")
+
 	if del1progress == 1 and system.cur() == system.get(sysname[1]) then
 	-- Entering sysname[1]
 		eclipse = pilot.add("Empire Pacifier", "def", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750,750) ))[1]
@@ -124,12 +125,11 @@ function enter()
  
 		hook.pilot(eclipse, "board", "board")
 		hook.pilot(eclipse, "death", "abort")
+
    elseif del1progress == 2 then
       if system.cur() == system.get(sysname[2]) then
       -- Entering sysname[2]
-         -- The Lancelots magically stop chasing you.
-         var.push("del1spawn", 0)
-
+         
          jessica = pilot.add("Trader Llama", "def", vec2.new( rnd.rnd(-1000,1000), rnd.rnd(-1000,1000) ))[1]
          jessica:setFaction(faction.get("Independent"))
          jessica:rename(shipname[2])
@@ -142,6 +142,7 @@ function enter()
       else
          spawn()
       end
+
 	elseif del1progress == 3 and system.cur() == system.get(sysname[3]) then
 	-- Entering sysname[3]
 		cluster = pilot.add("Trader Quicksilver", "trader", vec2.new( rnd.rnd(-750,750), rnd.rnd(-750, 750) ), false)[1]
@@ -150,6 +151,8 @@ function enter()
 		cluster:setInvincible()
 		cluster:control()
 		cluster:goto(vec2.new( rnd.rnd(0,427), rnd.rnd(-531,0) ), false)
+
+		var.pop("del1spawn")
 
 		hook.pilot(cluster, "idle", "idle")
 		hook.pilot(cluster, "hail", "hail")
@@ -172,6 +175,7 @@ function board()
 		-- If you don't stay on the ship
 			var.push("del1spawn", 1)
 			player.unboard()
+
 		else 
 		-- If you stay on the ship
 			var.push("del1spawn", 2)
@@ -223,7 +227,9 @@ end
 -- Hailing ships
 function hail()
 	del1progress = var.peek("del1progress")
-	if del1progress == 2 then -- Hailing shipname[2]
+
+	if del1progress == 2 then
+	-- Hailing shipname[2]
 		tk.msg(title[3], string.format(text[3], sysname[3], shipname[3]))
  
 		misn.osdDestroy()
@@ -239,7 +245,9 @@ function hail()
    	var.push("del1progress", 3)
  
 		jessica:setHealth(0,0)
-	elseif del1progress == 3 then -- Hailing shipname[3]
+
+	elseif del1progress == 3 then
+	-- Hailing shipname[3]
 		tk.msg(title[4], string.format(text[4], player.name()))
 
 		cluster:cleartask()
