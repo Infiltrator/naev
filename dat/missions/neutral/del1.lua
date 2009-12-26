@@ -50,10 +50,11 @@ else -- default english
    "They'll then meet you in the %s system. Don't keep them waiting. Well, good luck, mate."]]
 
 	title[2] = "Dust and echoes"
-	text[2] = [[You board the %s. It seems strangely deserted. As you proceed down the hall, you realise you're on an abandoned Empire ship. Heading onto the bridge, you notice a note left on one of the consoles.
-   "Go to the cargo bay and grab the box labelled 'X'."
+	text[2] = [[You board the %s. You shout and ask if anyone's on the ship. You can only hear the distant echo of your own voice.
+	You head to the cargo bay and only find a small grey box with an 'X' on it. The box is strapped to the floor but you have no problem lifting after you unstrap it.
+	You carry the box to the to the airlock and explore the rest of the ship. You find 11 bodies scattered around the ship. The door of the bridge is jammed but you break it. There are 4 more bodies on the bridge.
    Suddenly, the comm goes off and you hear someone broadcasting angrily. Something about stolen property or some nonsense like that.
-   Do you want to idle on the ship or grab the cargo and run?]] -- TODO broadcasting angrily was just something off the top of my head
+   Do you want to idle on the ship or grab the cargo and run?]] -- TODO Changed quite a lot. Check grammar or something maybe. Change whatever you want.
 
 			yes = "Idle around"
 			no = "Run!"
@@ -124,7 +125,6 @@ function enter()
 		eclipse:setInvincible(true)
  
 		hook.pilot(eclipse, "board", "board")
-		hook.pilot(eclipse, "death", "abort")
 
    elseif del1progress == 2 then
       if system.cur() == system.get(sysname[2]) then
@@ -164,7 +164,7 @@ function board()
 	if del1progress == 1 then
 	-- Boarding shipname[1]
  
-		carg_id = misn.addCargo("Food", 1) -- TODO Make it something other than food
+		carg_id = misn.addCargo("Food", 1) -- TODO change this to "Sealed box" and mass 0
  
    	var.push("del1progress", 2)
  
