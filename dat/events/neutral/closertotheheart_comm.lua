@@ -31,7 +31,7 @@ function hail()
 	schroedinger:control(false)
 	schroedinger:changeAI("flee")
 
-	evt.misnStart("Del") -- Del=WIP
+	evt.misnStart("Closer To The Heart")
 	evt.finish(true)
 end
 

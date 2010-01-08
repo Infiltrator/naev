@@ -12,7 +12,7 @@ Basic plot: Someone hails you and tells you to move some stuff from Eclipse to C
 lang = naev.lang()
 if lang == "es" then
 else -- default english
-	misn_title = "Del" -- TODO
+	misn_title = "Closer To The Heart"
 	misn_reward = [["It's a gas"]]
 	misn_desc = "A foreigner gave you a mysterious mission." -- Lol change 	this
 	credits = rnd.rnd(40000,60000)

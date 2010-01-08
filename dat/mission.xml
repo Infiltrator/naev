@@ -421,8 +421,8 @@
    <faction>Goddard</faction>
   </avail>
  </mission>
- <mission name="Del">
-  <lua>neutral/del1</lua>
+ <mission name="Closer To The Heart">
+  <lua>neutral/closertotheheart</lua>
   <flags>
    <unique />
   </flags>
