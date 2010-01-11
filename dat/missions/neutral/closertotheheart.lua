@@ -50,14 +50,18 @@ else -- default english
    "They'll then meet you in the %s system. Don't keep them waiting. Well, good luck, mate."]]
 
 	title[2] = "Dust and echoes"
-	text[2] = [[You board the %s. You shout and ask if anyone's on the ship. You can only hear the distant echo of your own voice.
-	You head to the cargo bay and only find a small grey box with an 'X' on it. The box is strapped to the floor but you have no problem lifting after you unstrap it.
-	You carry the box to the to the airlock and explore the rest of the ship. You find 11 bodies scattered around the ship. The door of the bridge is jammed but you break it. There are 4 more bodies on the bridge.
-   Suddenly, the comm goes off and you hear someone broadcasting angrily. Something about stolen property or some nonsense like that.
-   Do you want to idle on the ship or grab the cargo and run?]] -- TODO Changed quite a lot. Check grammar or something maybe. Change whatever you want.
+	text[2] = [[   You stroll to your airlock. A cargo delivery for the Empire? This'll be easy money. You hit your airlock release, expecting a crew with crates but are greeted by a deserted hallway.
+   You cautiously move forward. Just like the Empire to make you get the stuff yourself. You head off to the cargo bay.
+   Your footsteps seem to echo throughout the ship and you notice dust all over the walls, doors, and controls. The safe familiar hum of your ship reactors is far away. The silence is punctuated only by your footsteps. The walls, ceiling, and floor seem to shrink towards you as you make you make your way closer to the cargo hold. You find yourself looking over your shoulder every few seconds.
+   You finally reach the cargo bay, and draw your pistol. Hesitantly, you reach your hand towards the control panel. A loud hiss permeates your ears and rings through your head as you raise your pistol...
+   Only to find nothing but a small grey box with a panel marked with an 'X' strapped to the floor.
+   You nervously move forward, keeping your pistol up, barely keeping your lunch inside you. You reach the middle of the bay, and unstrap the box. You grab it and run back to the airlock. Your footsteps thunder around you. The shadows seem to chase you, reaching out to you, sending shivers up your spine. You feel yourself almost freezing. Every step takes an eternity as the darkness around you seems to reach right into your heart.
+   You get back onto your ship and feel yourself warming up. You look at your hand as it returns to a normal pink colour from the deathly white it was a minute ago. Your vision begins to swim...
+   Suddenly, the comm goes off and you hear someone broadcasting angrily. Something about stolen property or some nonsense like that. You have a terrible headache and can't remeber at all what happened after you hyperspaced into the system. Your hand feels heavy and you look down to see a small black box in it. It has an 'X' engraved on it.
+   Do you want to idle on the ship or get flying?]] -- TODO Completely changed it. Don't know if it works. :P
 
 			yes = "Idle around"
-			no = "Run!"
+			no = "Fly away!"
 
 	title[3] = "Helpless Automaton"
 	text[3] = [[Another voice-only transmission comes through on your comm.
@@ -171,7 +175,7 @@ function board()
 		misn.osdActive(2)
 		misn.setMarker(system.get(sysname[2]), "misc")
 
-		if tk.choice(title[2], string.format(text[2], shipname[1]), yes, no) == 2 then
+		if tk.choice(title[2], string.format(text[2]), yes, no) == 2 then
 		-- If you don't stay on the ship
 			var.push("del1spawn", 1.6)
 			player.unboard()
