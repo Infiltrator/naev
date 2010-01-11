@@ -37,7 +37,7 @@ else -- default english
 	text = {}
 	
 	title[0] = "Is there anybody out there?" -- TODO Probably change :D
-	text[0] = [[Your video screen shows dancing static. You're about to bang it to get it working when a voice-only transmission comes through. 
+	text[0] = [[   Your video screen shows dancing static. You're about to bang it to get it working when a voice-only transmission comes through. 
    "Hey, you're %s, right? Yeah... We've heard of you.
    "Listen, mate, we need you to do something for us. Nothing fancy, mind, just a little... courier mission.
    "You interested?"]]
@@ -46,7 +46,7 @@ else -- default english
 		declinebutton = "No"
 
 	title[1] = "Money for nothing" -- TODO Is this ok?
-	text[1] = [["Okay, great. Well, we need you to move some... stuff from the %s in the %s system to the %s. Real quiet-like, ya know?
+	text[1] = [[   "Okay, great. Well, we need you to move some... stuff from the %s in the %s system to the %s. Real quiet-like, ya know?
    "They'll then meet you in the %s system. Don't keep them waiting. Well, good luck, mate."]]
 
 	title[2] = "Dust and echoes"
@@ -64,17 +64,17 @@ else -- default english
 			no = "Fly away!"
 
 	title[3] = "Helpless Automaton"
-	text[3] = [[Another voice-only transmission comes through on your comm.
+	text[3] = [[   Another voice-only transmission comes through on your comm.
    "Hello. This is an automated message. There has been a change of plans. You are to proceed to the %s system, where you will board the %s.
    "In order to protect all those involved from unwanted attention, this messenger will self-destruct in 10 seconds..."]]
 
 	title[4] = "Space Odyssey"
-	text[4] = [[Yet another voice-only transmission casts static across your video screen. You're begining to wonder why you paid 2.2k for it.
+	text[4] = [[   Yet another voice-only transmission casts static across your video screen. You're begining to wonder why you paid 2.2k for it.
    "Ah, %s, we've been expecting you. Glad to see you got my message. Excellent. Well, don't dawdle, then. Hurry up and dock."
    If you didn't know better, you'd say that disembodied voice was purring.]]
 
 	title[5] = "It's a long way to the top"
-	text[5] = [[You proceed to your airlock, expecting to finally see the face of your employer when you're greeted by two men wearing visored helmets, bearing odd, disc-shaped black and reflective marks. You also pay attention to the black walls which are adorned with dispersive prisms and accompanying rays of light.
+	text[5] = [[   You proceed to your airlock, expecting to finally see the face of your employer when you're greeted by two men wearing visored helmets, bearing odd, disc-shaped black and reflective marks. You also pay attention to the black walls which are adorned with dispersive prisms and accompanying rays of light.
    "We'll take it from here," says one of the men, extending his hand. You hesitantly hand the box over.
    "Here's something for your troubles," says the other, handing you the silver case he was holding. "It's plenty fair, we reckon."
    With that, they both turn around, walk off, and seal their airlock. This would appear to be the end of your little adventure.]]
